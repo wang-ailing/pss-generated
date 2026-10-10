@@ -4,6 +4,55 @@
 
 功能检查：**10/10 意图通过，errors=0**。DUT 覆盖率：line 8/8、branch 16/16、expr 15/15（100%），toggle 1196/1246（95.99%）。本例目标是跑通生成至覆盖率的流程。
 
+## 使用 Makefile
+
+以下命令在 **Ubuntu Bash** 执行，需要 GNU Make 4.3 或更新版本；当前 Linux 已安装 Make 4.3 和 Verilator 5.052。使用仓库中已有的 PSS/SV。
+
+```bash
+cd /home/pssprobe
+fifo_repo=/home/pssprobe/pss-generated-fifo-v2-demo
+if [ -d "$fifo_repo/.git" ]; then
+  git -C "$fifo_repo" pull --ff-only origin main
+else
+  git clone https://github.com/wang-ailing/pss-generated.git "$fifo_repo"
+fi
+
+cd "$fifo_repo/fifo_v2"
+make all
+```
+
+`make all` 按依赖顺序完成编译、仿真、功能检查和覆盖率统计。新运行产物放在 **`runs/make/`**，结果是 `runs/make/results/functional.json`、`coverage.json`、`coverage.dat`、`dut.info` 和 `annotated/`。
+
+`make all` 复用已经完成且参数未变的步骤；显式 `make sim` 会重新仿真，随后 `make coverage` 使用该次数据。工具、种子或超时参数变化时会更新对应阶段。
+
+也可以分步执行：
+
+```bash
+make compile
+make sim
+make coverage
+make report
+```
+
+| 指令 | 用途 |
+| --- | --- |
+| `make help` | 查看目标、可配置变量和输出位置 |
+| `make check-tools` | 检查 Python、Verilator 和覆盖率工具 |
+| `make compile` | 编译已有 SV、DUT 和 testbench |
+| `make sim` | 仿真并检查十个意图是否全部通过 |
+| `make coverage` | 生成 DUT 覆盖率报告，按需完成前置步骤 |
+| `make report` | 打印覆盖率和结果目录 |
+| `make all` | 完整流程 |
+| `make clean` | 删除当前 `RUN_DIR` 的运行产物 |
+
+可指定运行目录、随机种子、超时和编译并行度：
+
+```bash
+make all RUN_DIR=runs/my-fifo-run SEED=42 SIM_TIMEOUT=180 JOBS=1
+```
+
+`RUN_DIR` 必须位于本示例的 `runs/` 下。其他机器可通过 `PYTHON`、`VERILATOR`、`VERILATOR_COVERAGE` 和 `VERILATOR_ROOT` 指定实际工具路径；默认值对应当前 Ubuntu 环境。完整 Make 配方见 [Makefile](Makefile)，原始分步命令如下。
+
 ## 从已生成的 PSS 和 SV 复现
 
 以下命令在你的 **Ubuntu Bash，同一个终端**按顺序执行。使用仓库内已有的 `model/fifo.pss`、`tb/tb_async_fifo.sv` 和 `generated/` 下的两个 SV 包，直接编译仿真。工具路径对应当前已经安装的 Linux 环境。

@@ -1,0 +1,146 @@
+{
+  "date": "2026-10-10",
+  "linux_case": "/home/pssprobe/spec2cov_fifo_practice/runs/make-check-L7iwtanX",
+  "commands": [
+    {
+      "argv": [
+        "make",
+        "all"
+      ],
+      "returncode": 0,
+      "log": "make-all.log"
+    },
+    {
+      "argv": [
+        "make",
+        "all"
+      ],
+      "returncode": 0,
+      "log": "make-cached.log"
+    },
+    {
+      "argv": [
+        "make",
+        "sim"
+      ],
+      "returncode": 0,
+      "log": "make-sim.log"
+    },
+    {
+      "argv": [
+        "make",
+        "coverage"
+      ],
+      "returncode": 0,
+      "log": "make-coverage.log"
+    },
+    {
+      "argv": [
+        "make",
+        "clean",
+        "RUN_DIR=outside-runs"
+      ],
+      "returncode": 2,
+      "log": "clean-rejected.log"
+    },
+    {
+      "argv": [
+        "make",
+        "clean"
+      ],
+      "returncode": 0,
+      "log": "make-clean.log"
+    }
+  ],
+  "cached_all_reused_build_and_sim": true,
+  "explicit_sim_reran_without_rebuild": true,
+  "coverage_reused_latest_sim": true,
+  "clean_rejected_outside_runs": true,
+  "clean_removed_selected_run": true,
+  "functional": {
+    "pass": true,
+    "errors": 0,
+    "intents": [
+      {
+        "id": "basic_ordered_write_read",
+        "pass": true
+      },
+      {
+        "id": "full_detection_and_extra_write_blocking",
+        "pass": true
+      },
+      {
+        "id": "empty_detection_and_read_blocking",
+        "pass": true
+      },
+      {
+        "id": "concurrent_producer_consumer",
+        "pass": true
+      },
+      {
+        "id": "write_domain_reset_with_nonzero_read_pointer",
+        "pass": true
+      },
+      {
+        "id": "read_domain_reset_with_nonzero_read_pointer",
+        "pass": true
+      },
+      {
+        "id": "coordinated_reset_flush",
+        "pass": true
+      },
+      {
+        "id": "near_full_boundary_transition",
+        "pass": true
+      },
+      {
+        "id": "pointer_synchronization_empty_full_flags",
+        "pass": true
+      },
+      {
+        "id": "back_to_back_continuous_enable",
+        "pass": true
+      }
+    ]
+  },
+  "coverage_metrics": {
+    "line": {
+      "covered": 8,
+      "total": 8,
+      "percent": 100.0
+    },
+    "branch": {
+      "covered": 16,
+      "total": 16,
+      "percent": 100.0
+    },
+    "toggle": {
+      "covered": 1196,
+      "total": 1246,
+      "percent": 95.987159
+    },
+    "expr": {
+      "covered": 15,
+      "total": 15,
+      "percent": 100.0
+    }
+  },
+  "source_sha256": {
+    "model/fifo.pss": "508e3adc76d1dfabc4fc4f284f65d62bd1ee2a850ec0fc04e8ce950ffa951429",
+    "generated/zsp_filelist.f": "f149a27589962d32b1aaba25441fe1c1ce98c326fc592248f8fcc8df20b918e2",
+    "generated/zsp_gen_pkg.sv": "416580d89f6a86206e94ba04993f03a12b4353234f0a49038ecac7c295ffcb07",
+    "generated/zsp_rt_pkg.sv": "991c45238486ad5d5d1ae72bf4da8a1cc5ae29ef6b106e30476f9a64c9b2f9be",
+    "tb/tb_async_fifo.sv": "14c5f50540e8adb5a7148f4cebc0a776bd8eec17b33930e5620c0cb5ea335fed",
+    "tb/coverage_zero.cpp": "7814b6eaa1bc8ff9df9cadd747989a1bbd8efb197d6151114421bb59d25518d8",
+    "rtl/fifo_memory.sv": "f17de773eb5c2a95854a1fc5e720448f9d97c55f45ff382684dbf6feab3f3c22",
+    "rtl/read_to_write_pointer_sync.sv": "68588eb63996c3d779e41bc9d4bdaf85e479c78fe6f68264ff84056e6c7ab843",
+    "rtl/rptr_empty.sv": "8fe56fd6cca3645e33ad190eb882f0382bb90dc7e7669f461f8024d64c9e3809",
+    "rtl/wptr_full.sv": "2977faa704aa2d389301a3023f6ff1026b5c1410d2e095daae2a4575e2ee3fec",
+    "rtl/async_fifo.sv": "994c976e3e182d143dceb1babf66cefee424b09827c6a1e209a762cc1d43de42",
+    "dependencies/CVDP_NOTICE": "3d8753e57eab52910ccb61a1ee09113c43e9382ccd98d5860b5621aff8d932dd",
+    "dependencies/CVDP_LICENSE": "cedcd612607018ad841d87d7f1c877630778a50c71692610fe76acdc22700719",
+    "dependencies/write_to_read_pointer_sync.sv": "a9e2462c54ea92f146416800e5d4b74d8a385cada094855a9c2727120488d1f2",
+    "scripts/report_coverage.py": "693513876962b3c995f40f65d6708f1f20cb8c26eb956014b2e13ee31457ab57"
+  },
+  "makefile_sha256": "1e8747cf0bb227e5daa5f047e34ef77c33583c6a92a7047840f1e9dc927b1c17"
+}

@@ -84,3 +84,11 @@ Linux 根目录：`/home/pssprobe/spec2cov_fifo_practice/runs/current-agent-fifo
 公开证据包：[原始证据 ZIP](evidence/current-agent-fifo-20261010-evidence.zip)和[原始清单](evidence/current-agent-fifo-20261010-evidence-manifest.json)，逐文件校验 61 项。ZIP 内保留原始 Linux 运行目录结构。
 
 当前仓库目录是 fifo_v2；[TRANSFER_MANIFEST.json](TRANSFER_MANIFEST.json)保存逐字节复制文件与原产物的对应关系。文档路径已适配仓库。上一轮回放结果保留在 [fifo](../fifo/README.md)。
+
+## Makefile 复现验收
+
+2026-10-10，在 Linux 独立目录使用仓库已有生成 SV 实际执行 `make all`，编译、仿真、功能检查和覆盖率统计成功。10/10 意图通过、errors=0，line/branch/expr 100%，toggle 1196/1246（95.99%）。此次没有模型调用或 PSSC 重新生成。
+
+已验证缓存 `make all` 不重复编译/仿真、显式 `make sim` 重跑且不重编译、随后 `make coverage` 复用该次数据。`make clean` 拒绝 runs 外的验证目录，允许删除选定运行目录；日志和结果在清理前保存。源码与上传文件 SHA-256 一致。
+
+[Makefile](Makefile)、[验收 JSON](evidence/fifo-v2-makefile-validation-20261010.json) 和 [日志与结果 ZIP](evidence/fifo-v2-makefile-validation-20261010.zip) 一并保存。运行命令见 [README](README.md) 的 Makefile 章节。
