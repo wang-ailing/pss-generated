@@ -1,0 +1,12 @@
+{
+  "execution_notes": [
+    "Repair previous_project from the current Agent run; preserve all ten intent IDs, their scenario order, DUT parameters, scoreboard data checks, and functional report schema. Do not use the historical coverage-replay project.",
+    "Observed failure: the previous project parsed/generated/compiled successfully, but simulation had not returned after more than five minutes and was explicitly cancelled. This was not a completed simulation or an observed functional PASS.",
+    "Concrete compiler evidence: generated/zsp_gen_pkg.sv has empty c_blocking_default and c_gap_default constraints. The PSS soft defaults were not emitted. The depth-65536 bursts bind n_words but allow gap_cycles up to 100000 and freely randomized blocking.",
+    "Explicitly hard-bind blocking == 1 and gap_cycles == 0 in every ordinary write_burst_a/read_burst_a traversal. Explicitly bind blocking == 1 for every ordinary write_single_a/read_single_a traversal, including formerly unconstrained do read_single_a calls. Keep blocking == 0 for the full-write and empty-read illegal attempts. Do not hard-lock the action-level blocking field to 1 because that conflicts with those two boundary attempts. Do not rely on soft defaults.",
+    "Add concise runtime progress: print each begin/end intent and every burst n_words/blocking/gap_cycles, without printing each word. Add an independent module-level global simulation watchdog at 20000000 ns that calls $fatal with the current intent on timeout. Existing clocks use ns timescale. Normal deterministic scenarios should finish well below this limit.",
+    "Keep every SystemVerilog declaration before statements in its lexical block, including initial-block file descriptor and task local variables. The previous repair already fixed declaration-placement compile errors; preserve those fixes.",
+    "Preserve the RTL, DUT wiring, real RAM-shadow data checking, cumulative counters and per-intent deltas. Do not clear physical RAM assumptions on a single-domain reset. Keep the accepted plan replay sequences unchanged.",
+    "Scope is only to finish execution and produce coverage, not increase coverage or add scenarios. Return the complete GeneratedProject JSON with PSS and SV files. Keep pss_entry model/fifo.pss, top_action pss_top::main_a, and testbench tb/tb_async_fifo.sv."
+  ]
+}

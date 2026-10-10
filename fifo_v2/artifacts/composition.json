@@ -1,0 +1,578 @@
+{
+  "intents": [
+    {
+      "intent_id": "basic_ordered_write_read",
+      "steps": [
+        {
+          "atomic_id": "begin_intent",
+          "bindings": {
+            "index": 0
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 16,
+            "start_data": 0
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 16
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "end_intent",
+          "bindings": {
+            "index": 0
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        }
+      ]
+    },
+    {
+      "intent_id": "full_detection_and_extra_write_blocking",
+      "steps": [
+        {
+          "atomic_id": "begin_intent",
+          "bindings": {
+            "index": 1
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 65536,
+            "start_data": 0
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_single",
+          "bindings": {
+            "data": 0,
+            "blocking": false
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 65536
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "end_intent",
+          "bindings": {
+            "index": 1
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        }
+      ]
+    },
+    {
+      "intent_id": "empty_detection_and_read_blocking",
+      "steps": [
+        {
+          "atomic_id": "begin_intent",
+          "bindings": {
+            "index": 2
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_single",
+          "bindings": {
+            "blocking": false
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_single",
+          "bindings": {
+            "data": 3735928559
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_single",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "end_intent",
+          "bindings": {
+            "index": 2
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        }
+      ]
+    },
+    {
+      "intent_id": "concurrent_producer_consumer",
+      "steps": [
+        {
+          "atomic_id": "begin_intent",
+          "bindings": {
+            "index": 3
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 1000,
+            "start_data": 0
+          },
+          "repeat": 1,
+          "parallel_group": "producer_consumer"
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 1000
+          },
+          "repeat": 1,
+          "parallel_group": "producer_consumer"
+        },
+        {
+          "atomic_id": "end_intent",
+          "bindings": {
+            "index": 3
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        }
+      ]
+    },
+    {
+      "intent_id": "write_domain_reset_with_nonzero_read_pointer",
+      "steps": [
+        {
+          "atomic_id": "begin_intent",
+          "bindings": {
+            "index": 4
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 5,
+            "start_data": 0
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_single",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_write",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 3,
+            "start_data": 100
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 2
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_read",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 3
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "end_intent",
+          "bindings": {
+            "index": 4
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        }
+      ]
+    },
+    {
+      "intent_id": "read_domain_reset_with_nonzero_read_pointer",
+      "steps": [
+        {
+          "atomic_id": "begin_intent",
+          "bindings": {
+            "index": 5
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 3,
+            "start_data": 200
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_single",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_read",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 3
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "end_intent",
+          "bindings": {
+            "index": 5
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        }
+      ]
+    },
+    {
+      "intent_id": "coordinated_reset_flush",
+      "steps": [
+        {
+          "atomic_id": "begin_intent",
+          "bindings": {
+            "index": 6
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 10,
+            "start_data": 300
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 3
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 5,
+            "start_data": 400
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 5
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "end_intent",
+          "bindings": {
+            "index": 6
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        }
+      ]
+    },
+    {
+      "intent_id": "near_full_boundary_transition",
+      "steps": [
+        {
+          "atomic_id": "begin_intent",
+          "bindings": {
+            "index": 7
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 65535,
+            "start_data": 500
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_single",
+          "bindings": {
+            "data": 66035
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_single",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 65535
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "end_intent",
+          "bindings": {
+            "index": 7
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        }
+      ]
+    },
+    {
+      "intent_id": "pointer_synchronization_empty_full_flags",
+      "steps": [
+        {
+          "atomic_id": "begin_intent",
+          "bindings": {
+            "index": 8
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_single",
+          "bindings": {
+            "data": 700
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "wait_rd_cycles",
+          "bindings": {
+            "cycles": 200
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_single",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 65536,
+            "start_data": 800
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_single",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "wait_wr_cycles",
+          "bindings": {
+            "cycles": 200
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 65535
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "end_intent",
+          "bindings": {
+            "index": 8
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        }
+      ]
+    },
+    {
+      "intent_id": "back_to_back_continuous_enable",
+      "steps": [
+        {
+          "atomic_id": "begin_intent",
+          "bindings": {
+            "index": 9
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "reset_both",
+          "bindings": {},
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "write_burst",
+          "bindings": {
+            "n_words": 100,
+            "start_data": 900
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "read_burst",
+          "bindings": {
+            "n_words": 100
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        },
+        {
+          "atomic_id": "end_intent",
+          "bindings": {
+            "index": 9
+          },
+          "repeat": 1,
+          "parallel_group": ""
+        }
+      ]
+    }
+  ]
+}

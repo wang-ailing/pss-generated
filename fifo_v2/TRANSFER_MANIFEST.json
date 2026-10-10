@@ -1,0 +1,402 @@
+{
+  "run": "current-agent-fifo-20261010",
+  "description": "Public source/results copied byte-for-byte; Markdown reports and walkthrough adapted for repository paths.",
+  "files": [
+    {
+      "source": "logs/current-agent-fifo-20261010.log",
+      "path": "logs/current-agent-fifo-20261010.log",
+      "bytes": 59453,
+      "sha256": "84162090c3c1d97950b5b6931a9b8c371aa16b9ed46565dcf96589cf04c8439d"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/SOURCE.json",
+      "path": "SOURCE.json",
+      "bytes": 7135,
+      "sha256": "d0cc8d6f804173e62966b97f73ccb438a9e3537ec5e71d2a40fe288d4924637b"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/atomic_decomposition.json",
+      "path": "artifacts/atomic_decomposition.json",
+      "bytes": 18458,
+      "sha256": "3a2e6cd0f6c10d619d4a37016f162cb2f8d0da43c52c7e195c5d972bd75e0d42"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/composition.json",
+      "path": "artifacts/composition.json",
+      "bytes": 12701,
+      "sha256": "27d6022ba442fe18b3ebe1c1853179f7b4b8c01aac85dd0af1c814bc47f84987"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/composition_attempts/1/composition.json",
+      "path": "artifacts/composition_attempts/1/composition.json",
+      "bytes": 12701,
+      "sha256": "27d6022ba442fe18b3ebe1c1853179f7b4b8c01aac85dd0af1c814bc47f84987"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/events.jsonl",
+      "path": "artifacts/events.jsonl",
+      "bytes": 2901923,
+      "sha256": "d6c724272728638abc1a026285d74b1211f435067c6397de02cc5d82a83e6619"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/functional_validation.json",
+      "path": "artifacts/functional_validation.json",
+      "bytes": 945,
+      "sha256": "344d147325c5e2c80553262e83fc9548b02ee4da5481da794ac0a6e71812f5ed"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/generation_attempts/1/functional_validation.json",
+      "path": "artifacts/generation_attempts/1/functional_validation.json",
+      "bytes": 945,
+      "sha256": "344d147325c5e2c80553262e83fc9548b02ee4da5481da794ac0a6e71812f5ed"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/generation_attempts/1/project.json",
+      "path": "artifacts/generation_attempts/1/project.json",
+      "bytes": 24652,
+      "sha256": "1c2b7d8b9f488ce6a9ef6b307a61f373ae82a319979a745f994289296529a6a6"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/generation_attempts/1/toolchain.json",
+      "path": "artifacts/generation_attempts/1/toolchain.json",
+      "bytes": 37546,
+      "sha256": "fcbb2b99c56d29e9080d9010a28e120349b98ee1b92a343e25b2b215d8b21b15"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/generation_attempts.json",
+      "path": "artifacts/generation_attempts.json",
+      "bytes": 503,
+      "sha256": "e63e2825e054395177d236c9f4e43287a787bb4adb141bd76c07c51a05988582"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/intent_actions.json",
+      "path": "artifacts/intent_actions.json",
+      "bytes": 789,
+      "sha256": "11fc7e3ead049e2322651143822039bc0b29c634a6a71c0eb1b0fa36131c8e32"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/project.json",
+      "path": "artifacts/project.json",
+      "bytes": 24652,
+      "sha256": "1c2b7d8b9f488ce6a9ef6b307a61f373ae82a319979a745f994289296529a6a6"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/report.json",
+      "path": "artifacts/report.json",
+      "bytes": 39564,
+      "sha256": "86760ac3382b093c6a32f3e7991995bcfc2fc7a5edbb30d42e7bdbebb266d158"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/request.json",
+      "path": "artifacts/request.json",
+      "bytes": 42877,
+      "sha256": "01f9adcdb7f490622064ac393cd90281012b2d8d75d2f6f86228f3b01c25c096"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/smoke_scope.json",
+      "path": "artifacts/smoke_scope.json",
+      "bytes": 5379,
+      "sha256": "95fe31eb722468e45c5452497d02d4c99e60b458a3bc0c17eb181678f63baa79"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/toolchain.json",
+      "path": "artifacts/toolchain.json",
+      "bytes": 37546,
+      "sha256": "fcbb2b99c56d29e9080d9010a28e120349b98ee1b92a343e25b2b215d8b21b15"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/artifacts/verification_plan.json",
+      "path": "artifacts/verification_plan.json",
+      "bytes": 14868,
+      "sha256": "a8f4ded5455cd306c4b65e8619fdc0f34c093ca6ce4e3268f74428920959ea04"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/dependencies/CVDP_LICENSE",
+      "path": "dependencies/CVDP_LICENSE",
+      "bytes": 11873,
+      "sha256": "cedcd612607018ad841d87d7f1c877630778a50c71692610fe76acdc22700719"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/dependencies/CVDP_NOTICE",
+      "path": "dependencies/CVDP_NOTICE",
+      "bytes": 6813,
+      "sha256": "3d8753e57eab52910ccb61a1ee09113c43e9382ccd98d5860b5621aff8d932dd"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/dependencies/write_to_read_pointer_sync.sv",
+      "path": "dependencies/write_to_read_pointer_sync.sv",
+      "bytes": 1263,
+      "sha256": "a9e2462c54ea92f146416800e5d4b74d8a385cada094855a9c2727120488d1f2"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/generated/zsp_filelist.f",
+      "path": "generated/zsp_filelist.f",
+      "bytes": 29,
+      "sha256": "f149a27589962d32b1aaba25441fe1c1ce98c326fc592248f8fcc8df20b918e2"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/generated/zsp_gen_pkg.sv",
+      "path": "generated/zsp_gen_pkg.sv",
+      "bytes": 52143,
+      "sha256": "416580d89f6a86206e94ba04993f03a12b4353234f0a49038ecac7c295ffcb07"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/generated/zsp_rt_pkg.sv",
+      "path": "generated/zsp_rt_pkg.sv",
+      "bytes": 8169,
+      "sha256": "991c45238486ad5d5d1ae72bf4da8a1cc5ae29ef6b106e30476f9a64c9b2f9be"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/model/fifo.pss",
+      "path": "model/fifo.pss",
+      "bytes": 8185,
+      "sha256": "508e3adc76d1dfabc4fc4f284f65d62bd1ee2a850ec0fc04e8ce950ffa951429"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/annotated/async_fifo.sv",
+      "path": "results/annotated/async_fifo.sv",
+      "bytes": 32228,
+      "sha256": "f617d83ec2a61ac0fc2d65797b4615680ad25a0318962ea724669e0bb1a82a34"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/annotated/fifo_memory.sv",
+      "path": "results/annotated/fifo_memory.sv",
+      "bytes": 28126,
+      "sha256": "9d465da3f519444edca84bca1ec41291a38bd934877c992d9c823b0885f366ff"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/annotated/read_to_write_pointer_sync.sv",
+      "path": "results/annotated/read_to_write_pointer_sync.sv",
+      "bytes": 14599,
+      "sha256": "ce6637ea31fa0bc17718482fb186ec0aa79d42f4291ede6e79940f68064dfba7"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/annotated/rptr_empty.sv",
+      "path": "results/annotated/rptr_empty.sv",
+      "bytes": 26882,
+      "sha256": "6db2e02194c1559d2b0939920136d9ede1a3fe6b328e269b5e10b8860e724683"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/annotated/wptr_full.sv",
+      "path": "results/annotated/wptr_full.sv",
+      "bytes": 26603,
+      "sha256": "c4e152b205df414060cb39e7cca8150ebee881478b87f2a03a05319a3c509fa1"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/annotated/write_to_read_pointer_sync.sv",
+      "path": "results/annotated/write_to_read_pointer_sync.sv",
+      "bytes": 14571,
+      "sha256": "5083a3a36b13aee1deacb800523e3520e166fa9a08b27ff438c0f44fb1a02b4b"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/build.log",
+      "path": "results/build.log",
+      "bytes": 48353,
+      "sha256": "a22dc15a844abef19f8c8e0cad7c35def1e14a7b6d244754d078ccf06a63862f"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/coverage.dat",
+      "path": "results/coverage.dat",
+      "bytes": 287152,
+      "sha256": "4fc150f0cf72a5aec8c658b384b0ec17c8f08d44b4dc8169cbf7ab33dc44b96f"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/coverage.json",
+      "path": "results/coverage.json",
+      "bytes": 9663,
+      "sha256": "efdae680196ac7e964ae4b4ff911c36821f5bc23f5687b8ca12d053763fd2d55"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/coverage.log",
+      "path": "results/coverage.log",
+      "bytes": 253,
+      "sha256": "e3a22bbbcba5ff92c28470d8cfbad381b1904fa00bace2257675b4cae44ba1d6"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/coverage_annotate.log",
+      "path": "results/coverage_annotate.log",
+      "bytes": 404,
+      "sha256": "f32e78450940940f21cf3cb0ef6096727bcdb5c71f560fe2cf222263054cbfb6"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/coverage_hierarchy.txt",
+      "path": "results/coverage_hierarchy.txt",
+      "bytes": 2044,
+      "sha256": "a1a8caee323404482caee646b0eea864efebdef8125a3047647d9b03a68f5b65"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/coverage_lcov.log",
+      "path": "results/coverage_lcov.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/coverage_summary.txt",
+      "path": "results/coverage_summary.txt",
+      "bytes": 211,
+      "sha256": "633227abad4d300bcd889314b173f034867cdc5d4456da78458d8d40e239f331"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/coverage_tool_version.txt",
+      "path": "results/coverage_tool_version.txt",
+      "bytes": 38,
+      "sha256": "110d748d8e6eca23b22ad7bf766d1d1fcf69c45731c3260fc80857cdd2d62576"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/dut.dat",
+      "path": "results/dut.dat",
+      "bytes": 177355,
+      "sha256": "d6e8d6eddfb2717c962c5efe1f5e22ea06e19eefbd544d59f476cfb65619985a"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/dut.info",
+      "path": "results/dut.info",
+      "bytes": 1197,
+      "sha256": "ea20c16ac0c127ab0c3dff9824da0533be1662cd79e48875eb2669ae06881327"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/dut_line_branch.dat",
+      "path": "results/dut_line_branch.dat",
+      "bytes": 3304,
+      "sha256": "0a057b12cab0eec7c2d4a0b9894f9f3b4bea7b76c2d2a66c2a7860a1b9164fd8"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/functional.json",
+      "path": "results/functional.json",
+      "bytes": 697,
+      "sha256": "a7d1841b049a4136d03bbf48d460940300de9585b3d1f58c3f0505e6964d75c7"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/generate.log",
+      "path": "results/generate.log",
+      "bytes": 74,
+      "sha256": "3b37c3d803533d67aedf20b7d5b6b490de3424e41ef9f2f93c27e1942c93f2af"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/model.ir.yaml",
+      "path": "results/model.ir.yaml",
+      "bytes": 292936,
+      "sha256": "a748944e63749d071fa39cde28238e7fbdf7b60b753acf52c76bfdbcf60ac79b"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/parse.log",
+      "path": "results/parse.log",
+      "bytes": 28,
+      "sha256": "e61218680f0710c60a687e1fb02823922d71a0223424f253d05a1e6ed5ebd569"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/simulate.log",
+      "path": "results/simulate.log",
+      "bytes": 6067,
+      "sha256": "c05391a9ae4895b6eede41692f126366094c2eaa64d164666a986c6f8b72ab0c"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/toolchain.json",
+      "path": "results/toolchain.json",
+      "bytes": 37546,
+      "sha256": "fcbb2b99c56d29e9080d9010a28e120349b98ee1b92a343e25b2b215d8b21b15"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/versions_pssc.log",
+      "path": "results/versions_pssc.log",
+      "bytes": 457,
+      "sha256": "86385f83e9b1b2a92a9ce0f6ff01da6fb0cafb30dac6d4e47a8a796fa404d462"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/versions_python.log",
+      "path": "results/versions_python.log",
+      "bytes": 14,
+      "sha256": "5b3e43dc38ca01e3f5a7854ba50d4330864b0c1e0f646650b2c78cf072acc366"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/results/versions_verilator.log",
+      "path": "results/versions_verilator.log",
+      "bytes": 38,
+      "sha256": "110d748d8e6eca23b22ad7bf766d1d1fcf69c45731c3260fc80857cdd2d62576"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/rtl/async_fifo.sv",
+      "path": "rtl/async_fifo.sv",
+      "bytes": 4036,
+      "sha256": "994c976e3e182d143dceb1babf66cefee424b09827c6a1e209a762cc1d43de42"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/rtl/fifo_memory.sv",
+      "path": "rtl/fifo_memory.sv",
+      "bytes": 1698,
+      "sha256": "f17de773eb5c2a95854a1fc5e720448f9d97c55f45ff382684dbf6feab3f3c22"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/rtl/read_to_write_pointer_sync.sv",
+      "path": "rtl/read_to_write_pointer_sync.sv",
+      "bytes": 1299,
+      "sha256": "68588eb63996c3d779e41bc9d4bdaf85e479c78fe6f68264ff84056e6c7ab843"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/rtl/rptr_empty.sv",
+      "path": "rtl/rptr_empty.sv",
+      "bytes": 2985,
+      "sha256": "8fe56fd6cca3645e33ad190eb882f0382bb90dc7e7669f461f8024d64c9e3809"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/rtl/wptr_full.sv",
+      "path": "rtl/wptr_full.sv",
+      "bytes": 3043,
+      "sha256": "2977faa704aa2d389301a3023f6ff1026b5c1410d2e095daae2a4575e2ee3fec"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/scripts/report_coverage.py",
+      "path": "scripts/report_coverage.py",
+      "bytes": 11786,
+      "sha256": "693513876962b3c995f40f65d6708f1f20cb8c26eb956014b2e13ee31457ab57"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/tb/coverage_zero.cpp",
+      "path": "tb/coverage_zero.cpp",
+      "bytes": 138,
+      "sha256": "7814b6eaa1bc8ff9df9cadd747989a1bbd8efb197d6151114421bb59d25518d8"
+    },
+    {
+      "source": "runs/current-agent-fifo-20261010/tb/tb_async_fifo.sv",
+      "path": "tb/tb_async_fifo.sv",
+      "bytes": 15198,
+      "sha256": "14c5f50540e8adb5a7148f4cebc0a776bd8eec17b33930e5620c0cb5ea335fed"
+    },
+    {
+      "source": "inputs/fifo.md",
+      "path": "docs/fifo.md",
+      "bytes": 13753,
+      "sha256": "5cae2d2919fbe5e0daa99ab04034c29323f4c7600a73c9d73639bb5701b93d4e"
+    },
+    {
+      "source": "inputs/current-agent-execution-feedback.json",
+      "path": "artifacts/execution-feedback.json",
+      "bytes": 2356,
+      "sha256": "c5553507cd0e32481dddb5709bee532d0746d072c567bb04456e9d40203d96b1"
+    },
+    {
+      "source": "prompt.md",
+      "path": "prompt.md",
+      "bytes": 2592,
+      "sha256": "f5551eb003002207fb9b8d98d4ca8e2d8d5ca96aedf093480366f0d5756afed4"
+    },
+    {
+      "source": "SMOKE_COMMANDS.md",
+      "path": "SMOKE_COMMANDS.md",
+      "bytes": 12014,
+      "sha256": "bcf4a3acb41c72abf24a2848aa2e8efd30e8a52214a166d6fef23e97d2e62ddf"
+    },
+    {
+      "source": "logs/current-agent-fifo-20261010-evidence.zip",
+      "path": "evidence/current-agent-fifo-20261010-evidence.zip",
+      "bytes": 190133,
+      "sha256": "7f2042d910f5bea15cbcf248468907db8001a72e5e03a9f9ea2c8fcadeb16897"
+    },
+    {
+      "source": "logs/current-agent-fifo-20261010-evidence-manifest.json",
+      "path": "evidence/current-agent-fifo-20261010-evidence-manifest.json",
+      "bytes": 11990,
+      "sha256": "f4221317aed830055e73e28a557c8f09731ad292340fdc1d606911580c5d7110"
+    }
+  ]
+}

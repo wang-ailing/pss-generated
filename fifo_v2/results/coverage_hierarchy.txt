@@ -1,0 +1,64 @@
+Hierarchy Coverage Summary:
+  tb_async_fifo
+    line      : 100.0% (   8/   8)
+    toggle    : 96.0% (1196/1246)
+    branch    : 100.0% (  16/  16)
+    expr      : 100.0% (  15/  15)
+  tb_async_fifo.dut
+    line      : 100.0% (   8/   8)
+    toggle    : 96.0% (1196/1246)
+    branch    : 100.0% (  16/  16)
+    expr      : 100.0% (  15/  15)
+  tb_async_fifo.dut.fifo_memory_inst
+    line      : 100.0% (  2/  2)
+    toggle    : 88.7% (236/266)
+    branch    : 100.0% (  4/  4)
+    expr      : 100.0% (  3/  3)
+  tb_async_fifo.dut.read_to_write_pointer_sync_inst
+    line      : 100.0% (  1/  1)
+    toggle    : 100.0% (106/106)
+    branch    : 100.0% (  2/  2)
+    expr      : 100.0% (  2/  2)
+  tb_async_fifo.dut.rptr_empty_inst
+    line      : 100.0% (  2/  2)
+    toggle    : 100.0% (212/212)
+    branch    : 100.0% (  4/  4)
+    expr      : 100.0% (  4/  4)
+  tb_async_fifo.dut.wptr_full_inst
+    line      : 100.0% (  2/  2)
+    toggle    : 100.0% (212/212)
+    branch    : 100.0% (  4/  4)
+    expr      : 100.0% (  4/  4)
+  tb_async_fifo.dut.write_to_read_pointer_sync_inst
+    line      : 100.0% (  1/  1)
+    toggle    : 100.0% (106/106)
+    branch    : 100.0% (  2/  2)
+    expr      : 100.0% (  2/  2)
+Design Unit Coverage Summary:
+  async_fifo
+    toggle    : 94.2% (324/344)
+  fifo_memory
+    line      : 100.0% (  2/  2)
+    toggle    : 88.7% (236/266)
+    branch    : 100.0% (  4/  4)
+    expr      : 100.0% (  3/  3)
+  read_to_write_pointer_sync
+    line      : 100.0% (  1/  1)
+    toggle    : 100.0% (106/106)
+    branch    : 100.0% (  2/  2)
+    expr      : 100.0% (  2/  2)
+  rptr_empty
+    line      : 100.0% (  2/  2)
+    toggle    : 100.0% (212/212)
+    branch    : 100.0% (  4/  4)
+    expr      : 100.0% (  4/  4)
+  wptr_full
+    line      : 100.0% (  2/  2)
+    toggle    : 100.0% (212/212)
+    branch    : 100.0% (  4/  4)
+    expr      : 100.0% (  4/  4)
+  write_to_read_pointer_sync
+    line      : 100.0% (  1/  1)
+    toggle    : 100.0% (106/106)
+    branch    : 100.0% (  2/  2)
+    expr      : 100.0% (  2/  2)

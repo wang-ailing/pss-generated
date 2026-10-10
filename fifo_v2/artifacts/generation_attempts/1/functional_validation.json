@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "path": "results/functional.json",
+  "expected_intent_ids": [
+    "basic_ordered_write_read",
+    "full_detection_and_extra_write_blocking",
+    "empty_detection_and_read_blocking",
+    "concurrent_producer_consumer",
+    "write_domain_reset_with_nonzero_read_pointer",
+    "read_domain_reset_with_nonzero_read_pointer",
+    "coordinated_reset_flush",
+    "near_full_boundary_transition",
+    "pointer_synchronization_empty_full_flags",
+    "back_to_back_continuous_enable"
+  ],
+  "actual_intent_ids": [
+    "basic_ordered_write_read",
+    "full_detection_and_extra_write_blocking",
+    "empty_detection_and_read_blocking",
+    "concurrent_producer_consumer",
+    "write_domain_reset_with_nonzero_read_pointer",
+    "read_domain_reset_with_nonzero_read_pointer",
+    "coordinated_reset_flush",
+    "near_full_boundary_transition",
+    "pointer_synchronization_empty_full_flags",
+    "back_to_back_continuous_enable"
+  ]
+}

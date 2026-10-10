@@ -1,0 +1,127 @@
+0: [ZSP] Action basic_ordered_write_read_a on top
+0: [ZSP] Action begin_intent_a on top
+[0] Begin intent 0
+0: [ZSP] Action reset_both_a on top
+189000: [ZSP] Action write_burst_a on top
+[189000] write_burst n_words=16 start_data=0 blocking=1 gap_cycles=0
+350000: [ZSP] Action read_burst_a on top
+[350000] read_burst n_words=16 blocking=1 gap_cycles=0
+588000: [ZSP] Action end_intent_a on top
+[588000] End intent 0
+588000: [ZSP] Action full_detection_and_extra_write_blocking_a on top
+588000: [ZSP] Action begin_intent_a on top
+[588000] Begin intent 1
+588000: [ZSP] Action reset_both_a on top
+777000: [ZSP] Action write_burst_a on top
+[777000] write_burst n_words=65536 start_data=0 blocking=1 gap_cycles=0
+656140000: [ZSP] Action write_single_a on top
+656170000: [ZSP] Action read_burst_a on top
+[656170000] read_burst n_words=65536 blocking=1 gap_cycles=0
+1573684000: [ZSP] Action end_intent_a on top
+[1573684000] End intent 1
+1573684000: [ZSP] Action empty_detection_and_read_blocking_a on top
+1573684000: [ZSP] Action begin_intent_a on top
+[1573684000] Begin intent 2
+1573684000: [ZSP] Action reset_both_a on top
+1573887000: [ZSP] Action read_single_a on top
+1573922000: [ZSP] Action write_single_a on top
+1573950000: [ZSP] Action read_single_a on top
+1574006000: [ZSP] Action end_intent_a on top
+[1574006000] End intent 2
+1574006000: [ZSP] Action concurrent_producer_consumer_a on top
+1574006000: [ZSP] Action begin_intent_a on top
+[1574006000] Begin intent 3
+1574006000: [ZSP] Action reset_both_a on top
+1574181000: [ZSP] parallel enter
+1574181000: [ZSP] Action write_burst_a on top
+[1574181000] write_burst n_words=1000 start_data=0 blocking=1 gap_cycles=0
+1574181000: [ZSP] Action read_burst_a on top
+[1574181000] read_burst n_words=1000 blocking=1 gap_cycles=0
+1588244000: [ZSP] parallel exit
+1588244000: [ZSP] Action end_intent_a on top
+[1588244000] End intent 3
+1588244000: [ZSP] Action write_domain_reset_with_nonzero_read_pointer_a on top
+1588244000: [ZSP] Action begin_intent_a on top
+[1588244000] Begin intent 4
+1588244000: [ZSP] Action reset_both_a on top
+1588447000: [ZSP] Action write_burst_a on top
+[1588447000] write_burst n_words=5 start_data=0 blocking=1 gap_cycles=0
+1588500000: [ZSP] Action read_single_a on top
+1588538000: [ZSP] Action reset_write_a on top
+1588605000: [ZSP] Action write_burst_a on top
+[1588605000] write_burst n_words=3 start_data=100 blocking=1 gap_cycles=0
+1588640000: [ZSP] Action read_burst_a on top
+[1588640000] read_burst n_words=2 blocking=1 gap_cycles=0
+1588692000: [ZSP] Action reset_read_a on top
+1588797000: [ZSP] Action read_burst_a on top
+[1588797000] read_burst n_words=3 blocking=1 gap_cycles=0
+1588846000: [ZSP] Action end_intent_a on top
+[1588846000] End intent 4
+1588846000: [ZSP] Action read_domain_reset_with_nonzero_read_pointer_a on top
+1588846000: [ZSP] Action begin_intent_a on top
+[1588846000] Begin intent 5
+1588846000: [ZSP] Action reset_both_a on top
+1589021000: [ZSP] Action write_burst_a on top
+[1589021000] write_burst n_words=3 start_data=200 blocking=1 gap_cycles=0
+1589060000: [ZSP] Action read_single_a on top
+1589098000: [ZSP] Action reset_read_a on top
+1589203000: [ZSP] Action read_burst_a on top
+[1589203000] read_burst n_words=3 blocking=1 gap_cycles=0
+1589252000: [ZSP] Action end_intent_a on top
+[1589252000] End intent 5
+1589252000: [ZSP] Action coordinated_reset_flush_a on top
+1589252000: [ZSP] Action begin_intent_a on top
+[1589252000] Begin intent 6
+1589252000: [ZSP] Action reset_both_a on top
+1589441000: [ZSP] Action write_burst_a on top
+[1589441000] write_burst n_words=10 start_data=300 blocking=1 gap_cycles=0
+1589550000: [ZSP] Action read_burst_a on top
+[1589550000] read_burst n_words=3 blocking=1 gap_cycles=0
+1589602000: [ZSP] Action reset_both_a on top
+1589791000: [ZSP] Action write_burst_a on top
+[1589791000] write_burst n_words=5 start_data=400 blocking=1 gap_cycles=0
+1589850000: [ZSP] Action read_burst_a on top
+[1589850000] read_burst n_words=5 blocking=1 gap_cycles=0
+1589924000: [ZSP] Action end_intent_a on top
+[1589924000] End intent 6
+1589924000: [ZSP] Action near_full_boundary_transition_a on top
+1589924000: [ZSP] Action begin_intent_a on top
+[1589924000] Begin intent 7
+1589924000: [ZSP] Action reset_both_a on top
+1590127000: [ZSP] Action write_burst_a on top
+[1590127000] write_burst n_words=65535 start_data=500 blocking=1 gap_cycles=0
+2245480000: [ZSP] Action write_single_a on top
+2245510000: [ZSP] Action read_single_a on top
+2245544000: [ZSP] Action read_burst_a on top
+[2245544000] read_burst n_words=65535 blocking=1 gap_cycles=0
+3163048000: [ZSP] Action end_intent_a on top
+[3163048000] End intent 7
+3163048000: [ZSP] Action pointer_synchronization_empty_full_flags_a on top
+3163048000: [ZSP] Action begin_intent_a on top
+[3163048000] Begin intent 8
+3163048000: [ZSP] Action reset_both_a on top
+3163237000: [ZSP] Action write_single_a on top
+3163260000: [ZSP] Action wait_rd_cycles_a on top
+3166065000: [ZSP] Action read_single_a on top
+3166100000: [ZSP] Action write_burst_a on top
+[3166100000] write_burst n_words=65536 start_data=800 blocking=1 gap_cycles=0
+3821470000: [ZSP] Action read_single_a on top
+3821510000: [ZSP] Action wait_wr_cycles_a on top
+3823515000: [ZSP] Action read_burst_a on top
+[3823515000] read_burst n_words=65535 blocking=1 gap_cycles=0
+4741016000: [ZSP] Action end_intent_a on top
+[4741016000] End intent 8
+4741016000: [ZSP] Action back_to_back_continuous_enable_a on top
+4741016000: [ZSP] Action begin_intent_a on top
+[4741016000] Begin intent 9
+4741016000: [ZSP] Action reset_both_a on top
+4741191000: [ZSP] Action write_burst_a on top
+[4741191000] write_burst n_words=100 start_data=900 blocking=1 gap_cycles=0
+4742200000: [ZSP] Action read_burst_a on top
+[4742200000] read_burst n_words=100 blocking=1 gap_cycles=0
+4743606000: [ZSP] Action end_intent_a on top
+[4743606000] End intent 9
+- tb/tb_async_fifo.sv:484: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.052 2026-09-05
+- Verilator: $finish at 5ms; walltime 2.086 s; speed 2.275 ms/s
+- Verilator: cpu 1.443 s on 1 threads; allocated 7 MB

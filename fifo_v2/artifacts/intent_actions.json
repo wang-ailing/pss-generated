@@ -1,0 +1,12 @@
+{
+  "basic_ordered_write_read": "basic_ordered_write_read_a",
+  "full_detection_and_extra_write_blocking": "full_detection_and_extra_write_blocking_a",
+  "empty_detection_and_read_blocking": "empty_detection_and_read_blocking_a",
+  "concurrent_producer_consumer": "concurrent_producer_consumer_a",
+  "write_domain_reset_with_nonzero_read_pointer": "write_domain_reset_with_nonzero_read_pointer_a",
+  "read_domain_reset_with_nonzero_read_pointer": "read_domain_reset_with_nonzero_read_pointer_a",
+  "coordinated_reset_flush": "coordinated_reset_flush_a",
+  "near_full_boundary_transition": "near_full_boundary_transition_a",
+  "pointer_synchronization_empty_full_flags": "pointer_synchronization_empty_full_flags_a",
+  "back_to_back_continuous_enable": "back_to_back_continuous_enable_a"
+}

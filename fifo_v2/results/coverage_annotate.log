@@ -1,0 +1,10 @@
+Coverage Summary:
+  line      : 100.0% (   8/   8)
+  toggle    : 96.0% (1196/1246)
+  branch    : 100.0% (  16/  16)
+  expr      : 100.0% (  15/  15)
+  fsm_state : 0.0% (   0/   0)
+  fsm_arc   : 0.0% (   0/   0)
+Annotation Summary:
+  lines with all attached points covered : 95.00%  (97/102)
+See lines with '%00' in /home/pssprobe/spec2cov_fifo_practice/runs/current-agent-fifo-20261010/results/annotated

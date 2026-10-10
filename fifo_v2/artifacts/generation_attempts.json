@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "selected_attempt": 1,
+  "selected_project_directory": ".",
+  "attempts": [
+    {
+      "attempt": 1,
+      "execution_directory": ".",
+      "evidence_directory": ".",
+      "outcome": "success",
+      "project_artifact": "artifacts/generation_attempts/1/project.json",
+      "toolchain_artifact": "artifacts/generation_attempts/1/toolchain.json"
+    }
+  ],
+  "root_results_policy": "Root results belong to attempt 1; use the selected project directory for later results."
+}

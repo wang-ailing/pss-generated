@@ -1,0 +1,213 @@
+{
+  "intents": [
+    {
+      "id": "basic_ordered_write_read",
+      "description": "Verify basic FIFO write then read preserves order and data integrity for a small sequential transfer.",
+      "preconditions": [
+        "Both clock domains reset and released: i_wr_rst_n and i_rd_rst_n held low for at least 20 cycles on respective clocks, then released.",
+        "Observe o_fifo_empty == 1 and o_fifo_full == 0 after synchronizer settling."
+      ],
+      "stimulus_strategy": "Setup: apply both resets, release, wait until empty=1 and full=0. Write N=16 words with data pattern start_data + i (i=0..15) using write enable asserted per word on write clock; hold wr_en high only on rising write clock edges where full=0, count accepted writes. Then read N words using read enable per word on read clock, only when empty=0; count accepted reads and sample o_rd_data after each read rising edge plus #0.001. Cleanup: none required, FIFO empty at end.",
+      "pass_criteria": [
+        "accepted_writes == 16 and accepted_reads == 16.",
+        "Read data sequence exactly equals start_data+0..start_data+15 in order.",
+        "o_fifo_full remains 0 during all writes.",
+        "o_fifo_empty is 1 at start, deasserts after first accepted write, and reasserts after the 16th accepted read."
+      ],
+      "coverage_targets": [
+        "Basic write operation",
+        "Basic read operation",
+        "Data order preservation",
+        "Empty flag deassertion/assertion with small transfer"
+      ]
+    },
+    {
+      "id": "full_detection_and_extra_write_blocking",
+      "description": "Verify full flag assertion when FIFO depth 65536 is filled and that additional writes are blocked without corrupting existing data.",
+      "preconditions": [
+        "Both domains reset and released; FIFO empty and full=0."
+      ],
+      "stimulus_strategy": "Setup: reset both, release. Fill FIFO by performing exactly 65536 writes with data = address (0..65535) using write enable on every write clock cycle where full=0; count accepted writes. After the 65536th write, o_fifo_full should be 1. Keep write enable high for one additional write clock cycle and check that no write is accepted (accepted_writes delta remains 65536). Then read back all 65536 words using read enable, compare each read data to expected address. Cleanup: after all reads, FIFO empty; no further action.",
+      "pass_criteria": [
+        "accepted_writes == 65536 before extra attempt.",
+        "o_fifo_full == 1 immediately after the 65536th write.",
+        "No write accepted during the extra cycle when full=1; accepted_writes remains 65536.",
+        "Read back 65536 words, all data exactly equals the written address values, proving no corruption from blocked write.",
+        "o_fifo_empty deasserts after first read and reasserts after final read."
+      ],
+      "coverage_targets": [
+        "Full condition at maximum depth",
+        "Write blocking when full",
+        "Data integrity across full FIFO",
+        "Full flag assertion timing"
+      ]
+    },
+    {
+      "id": "empty_detection_and_read_blocking",
+      "description": "Verify empty flag behavior and read blocking when FIFO has no data, then recovery after a write.",
+      "preconditions": [
+        "Both domains reset and released; FIFO empty and full=0."
+      ],
+      "stimulus_strategy": "Setup: reset both, release, confirm empty=1. Attempt one read with rd_en=1 while empty=1; ensure no accepted read and empty stays 1. Then write one word (data = sentinel) with wr_en on write clock; wait in read domain until o_fifo_empty deasserts (bounded wait up to 200 read cycles). Then perform one read and verify data. Cleanup: after read, FIFO empty.",
+      "pass_criteria": [
+        "Initial o_fifo_empty == 1.",
+        "Read attempt while empty does not increment accepted_reads; o_fifo_empty remains 1.",
+        "After one write, o_fifo_empty deasserts within bounded time.",
+        "Accepted reads after data available == 1; read data equals sentinel.",
+        "o_fifo_empty reasserts after the read."
+      ],
+      "coverage_targets": [
+        "Empty condition detection",
+        "Read blocking when empty",
+        "Empty flag deassertion after write synchronization",
+        "Empty flag assertion after last read"
+      ]
+    },
+    {
+      "id": "concurrent_producer_consumer",
+      "description": "Verify simultaneous writes and reads with independent asynchronous clocks, maintaining order and data integrity under continuous traffic.",
+      "preconditions": [
+        "Both domains reset and released; FIFO empty."
+      ],
+      "stimulus_strategy": "Setup: reset both, release. Run two concurrent tasks: writer on write clock produces N=1000 words with sequential data pattern (start_data + index) writing whenever full=0; reader on read clock consumes words whenever empty=0, until N words received. Use different clock periods (e.g., 10 ns for write, 14 ns for read). Monitor accepted writes, accepted reads, blocked write attempts when full, blocked read attempts when empty. At end, verify counts and data order. Cleanup: after reader finishes, FIFO should be empty; assert both resets if needed.",
+      "pass_criteria": [
+        "accepted_writes == 1000 and accepted_reads == 1000.",
+        "No data mismatch: each read data equals expected next sequential word.",
+        "No underflow (accepted_read when empty=0? actually no read accepted when empty)",
+        "No overflow writes (no write accepted when full=1). Blocked write/read attempts may occur when respective flags asserted, but accepted counts remain correct.",
+        "o_fifo_empty returns to 1 at end."
+      ],
+      "coverage_targets": [
+        "Concurrent write and read across clock domains",
+        "Pointer synchronization under traffic",
+        "Data integrity with asynchronous clocks",
+        "Continuous traffic stress"
+      ]
+    },
+    {
+      "id": "write_domain_reset_with_nonzero_read_pointer",
+      "description": "Verify write-domain reset resets write pointer to zero while read domain and RAM are preserved; subsequent write starts at address 0, and the accessible data after reset can be read correctly, including replay after a subsequent read-domain reset.",
+      "preconditions": [
+        "Both domains reset and released initially; empty."
+      ],
+      "stimulus_strategy": "Setup: write 5 words A0..A4 at addresses 0..4. Read 1 word (A0); read pointer becomes 1, write pointer becomes 5. Record accepted reads before write reset. Assert i_wr_rst_n low for at least 20 write clock cycles while no write/read operations occur; release. Wait for write-domain synchronization. Write 3 new words B0, B1, B2; these are accepted at addresses 0,1,2, overwriting A0,A1,A2. Record accepted writes delta after write reset (should be 3). Read two words from current read pointer (address 1): expect B1 then B2. After these two reads, read pointer becomes 3, write pointer is 3, so FIFO should be empty (observe o_fifo_empty = 1). Then assert i_rd_rst_n low for at least 20 read clock cycles to reset read pointer to 0; release. Wait for read-domain synchronization. Read three words: expect B0, B1, B2 in order from address 0. Cleanup: after these reads, FIFO empty.",
+      "pass_criteria": [
+        "Before write reset, accepted_reads delta == 1 (A0 read), read pointer nonzero.",
+        "After write reset, accepted_writes delta == 3 (B0,B1,B2), proving write pointer reset to 0.",
+        "After write reset and two reads, accepted_reads delta == 2, data exactly B1 then B2.",
+        "After those two reads, o_fifo_empty == 1 (observed in read domain).",
+        "After read reset, accepted_reads delta == 3, data exactly B0, B1, B2 in order from address 0.",
+        "No unexpected full or empty blocking during the described operations except as noted.",
+        "RAM preservation: B0, B1, B2 remain accessible after read reset; A3 and A4 are not accessible in this scenario because they are beyond the current write pointer and are not part of this intent's valid replay window."
+      ],
+      "coverage_targets": [
+        "Write-domain independent reset",
+        "Write pointer reset to zero",
+        "RAM preservation during write reset",
+        "Read pointer unaffected by write reset",
+        "Data replay after read-domain reset following write-domain reset"
+      ]
+    },
+    {
+      "id": "read_domain_reset_with_nonzero_read_pointer",
+      "description": "Verify read-domain reset resets read pointer to zero while write domain and RAM are preserved; subsequent read starts at address 0 and replays previously read data.",
+      "preconditions": [
+        "Both domains reset and released initially; empty."
+      ],
+      "stimulus_strategy": "Setup: write 3 words A0,A1,A2 at addresses 0,1,2. Read 1 word; read pointer becomes 1, write pointer remains 3. Assert i_rd_rst_n low for at least 20 read clock cycles while no operations; release. Wait for sync write pointer to settle. Read 3 words with read enable; expect A0,A1,A2 in order because read pointer reset to 0 and RAM preserved. Cleanup: after 3 reads, FIFO empty.",
+      "pass_criteria": [
+        "accepted_reads delta after read reset == 3.",
+        "Read data sequence equals A0,A1,A2 exactly.",
+        "o_fifo_empty asserts after the third read.",
+        "Write pointer remains unchanged (implicitly as no extra data appears)."
+      ],
+      "coverage_targets": [
+        "Read-domain independent reset",
+        "Read pointer reset to zero",
+        "RAM preservation during read reset",
+        "Data replay after read reset"
+      ]
+    },
+    {
+      "id": "coordinated_reset_flush",
+      "description": "Verify simultaneous reset of both domains initializes FIFO to empty and full=0, and subsequent write/read operates from clean state.",
+      "preconditions": [
+        "Both domains previously active with some data."
+      ],
+      "stimulus_strategy": "Setup: after prior traffic (write 10 words, read 3), assert both i_wr_rst_n and i_rd_rst_n low for at least 30 cycles on respective clocks simultaneously; release. Wait until o_fifo_empty=1 and o_fifo_full=0 after settling. Write 5 new words and read them back completely. Cleanup: FIFO empty at end.",
+      "pass_criteria": [
+        "After coordinated reset, o_fifo_empty == 1 and o_fifo_full == 0.",
+        "No accepted writes or reads occur during reset.",
+        "Subsequent write/read of 5 words succeeds: accepted_writes=5, accepted_reads=5, data in order, no mismatches.",
+        "Old queued data from before reset is not accessible (testbench discards old expected queue upon coordinated reset)."
+      ],
+      "coverage_targets": [
+        "Coordinated reset behavior",
+        "FIFO state initialization",
+        "Clean restart after reset",
+        "Global logical flush via both-domain reset"
+      ]
+    },
+    {
+      "id": "near_full_boundary_transition",
+      "description": "Verify full flag transition at depth-1 and depth boundaries: full=0 after 65535 writes, full=1 after the 65536th write, and full deasserts after one read.",
+      "preconditions": [
+        "Both domains reset and released; FIFO empty."
+      ],
+      "stimulus_strategy": "Setup: reset both, release. Write 65535 words with data = address using continuous write enable, counting accepted writes. Check o_fifo_full = 0 after the 65535th write. Write one more word (the 65536th); after this write edge, check o_fifo_full = 1. Then read one word with read enable; after the read, check o_fifo_full = 0 and o_fifo_empty = 0. Cleanup: read remaining 65535 words to empty FIFO or apply coordinated reset.",
+      "pass_criteria": [
+        "accepted_writes == 65535 with full=0 after last such write.",
+        "After 65536th write, o_fifo_full == 1.",
+        "After one read, o_fifo_full == 0 and o_fifo_empty == 0.",
+        "Remaining occupancy is 65535 (total writes - reads)."
+      ],
+      "coverage_targets": [
+        "Full flag boundary at depth-1",
+        "Full flag assertion at depth",
+        "Full flag deassertion after read from full",
+        "Occupancy calculation at boundary"
+      ]
+    },
+    {
+      "id": "pointer_synchronization_empty_full_flags",
+      "description": "Verify pointer synchronization across clock domains by observing empty and full flag transitions resulting from actual transfer events.",
+      "preconditions": [
+        "Both domains reset and released; FIFO empty."
+      ],
+      "stimulus_strategy": "Setup: reset both, release. Part 1 (empty sync): write one word; observe in read domain that o_fifo_empty deasserts after a bounded number of read clock cycles, record the latency. Read one word; observe o_fifo_empty reasserts. Part 2 (full sync): fill FIFO with 65536 writes as in full intent; observe o_fifo_full asserts in write domain after last write. Read one word; observe o_fifo_full deasserts after a bounded number of write clock cycles. Cleanup: read all remaining data to empty.",
+      "pass_criteria": [
+        "o_fifo_empty deasserts within 200 read clock cycles after write accepted (no exact cycle bound required, but must deassert).",
+        "o_fifo_empty reasserts after last read.",
+        "o_fifo_full asserts after 65536th write.",
+        "o_fifo_full deasserts within 200 write clock cycles after one read from full.",
+        "No false flag transitions during steady state."
+      ],
+      "coverage_targets": [
+        "Write pointer synchronization to read domain affecting empty",
+        "Read pointer synchronization to write domain affecting full",
+        "Flag transition latency bounded by synchronizer",
+        "Bidirectional pointer synchronization"
+      ]
+    },
+    {
+      "id": "back_to_back_continuous_enable",
+      "description": "Verify back-to-back writes and reads with continuously asserted enable signals, ensuring no lost cycles or data corruption.",
+      "preconditions": [
+        "Both domains reset and released; FIFO empty."
+      ],
+      "stimulus_strategy": "Setup: reset both, release. Write 100 words with wr_en held high continuously on write clock, counting accepted writes; because depth large, full never asserts, so all 100 accepted. Then read 100 words with rd_en held high continuously on read clock; empty deasserts after first write sync, so all reads accepted. Collect read data. Cleanup: FIFO empty after reads.",
+      "pass_criteria": [
+        "accepted_writes == 100 and accepted_reads == 100.",
+        "No write blocked by full; no read blocked by empty after data available.",
+        "Read data sequence matches written data exactly.",
+        "o_fifo_empty asserts after final read."
+      ],
+      "coverage_targets": [
+        "Continuous write enable",
+        "Continuous read enable",
+        "Back-to-back transfer",
+        "Enable signal assertion across multiple cycles"
+      ]
+    }
+  ]
+}

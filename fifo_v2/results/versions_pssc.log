@@ -1,0 +1,11 @@
+Name: pssc
+Version: 0.1.0
+Summary: PSSC — the PSS compiler: PSS source to SystemVerilog, C, and Python via Zuspec IR
+Home-page: 
+Author: 
+Author-email: Matthew Ballance <matt.ballance@gmail.com>
+License: 
+Location: /home/pssprobe/fw_wb_dma_repro/.venv/lib/python3.12/site-packages
+Editable project location: /home/pssprobe/fw_wb_dma_repro/packages/pssc
+Requires: dv-solve, pssparser, zuspec-be-py, zuspec-be-sv, zuspec-be-sw, zuspec-ir-core
+Required-by: 

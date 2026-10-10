@@ -1,0 +1,290 @@
+{
+  "actions": [
+    {
+      "id": "write_single",
+      "description": "Write one 32-bit data word into the FIFO in the write clock domain.",
+      "parameters": {
+        "data": {
+          "type": "integer",
+          "required": true,
+          "minimum": 0,
+          "maximum": 4294967295,
+          "description": "32-bit data word to write."
+        },
+        "blocking": {
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "If true, wait until the FIFO accepts the write (full low). If false, attempt only when full is low at the next sampling edge; if full, record a blocked attempt and return without writing."
+        }
+      },
+      "preconditions": [
+        "Write reset (i_wr_rst_n) is released (high).",
+        "The write clock is running.",
+        "If blocking=true, the testbench permits waiting until full is low."
+      ],
+      "postconditions": [
+        "If blocking=true, exactly one word is accepted and written to the FIFO memory; accepted_writes increments by 1.",
+        "If blocking=false and full was low at the sampling edge, one word is accepted; otherwise no write occurs and full_write_attempts increments by 1.",
+        "The expected data queue in the scoreboard is updated only for accepted writes.",
+        "i_wr_en is deasserted after the operation completes."
+      ],
+      "sv_binding": "exec_write_single",
+      "execution_contract": "Imported task signature: virtual task exec_write_single(input bit [31:0] data, input bit blocking); Domain: write clock i_wr_clk. Drive on falling edges, sample on rising edges. On entry, deassert i_wr_en if currently high from this task (wait one falling edge to ensure clean state). For blocking=1: wait until a falling edge where o_fifo_full==0 and i_wr_rst_n==1; then set i_wr_en=1 and i_wr_data=data on that falling edge; hold through the next rising edge (accepted if full==0 and reset high); deassert i_wr_en at the following falling edge. For blocking=0: at the next falling edge, set i_wr_en=1 and i_wr_data=data; at the following rising edge, if o_fifo_full==0 and i_wr_rst_n==1, the write is accepted; if full==1 or reset low, no write occurs and increment full_write_attempts; deassert i_wr_en at the next falling edge. If reset becomes active during the operation, abort without incrementing accepted_writes and treat as blocked attempt if non-blocking, or error if blocking timeout. Blocking wait upper bound: 100000 write clock cycles; if exceeded, report a timeout error and abort."
+    },
+    {
+      "id": "read_single",
+      "description": "Read one 32-bit data word from the FIFO in the read clock domain.",
+      "parameters": {
+        "blocking": {
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "If true, wait until the FIFO has data (empty low). If false, attempt only when empty is low at the next sampling edge; if empty, record an empty read attempt and return without reading."
+        }
+      },
+      "preconditions": [
+        "Read reset (i_rd_rst_n) is released (high).",
+        "The read clock is running.",
+        "If blocking=true, the testbench permits waiting until empty is low."
+      ],
+      "postconditions": [
+        "If blocking=true and not empty, exactly one word is read; accepted_reads increments by 1; the scoreboard pops the oldest expected word and compares o_rd_data after the registered RAM update delay.",
+        "If blocking=false and empty was low at the sampling edge, one word is read; otherwise no read occurs and empty_read_attempts increments by 1.",
+        "i_rd_en is deasserted after the operation completes."
+      ],
+      "sv_binding": "exec_read_single",
+      "execution_contract": "Imported task signature: virtual task exec_read_single(input bit blocking); Domain: read clock i_rd_clk. Drive on falling edges, sample on rising edges. On entry, deassert i_rd_en if currently high from this task. For blocking=1: wait until a falling edge where o_fifo_empty==0 and i_rd_rst_n==1; then set i_rd_en=1 on that falling edge; hold through the next rising edge (accepted if empty==0 and reset high); deassert i_rd_en at the following falling edge. For blocking=0: at the next falling edge, set i_rd_en=1; at the following rising edge, if o_fifo_empty==0 and i_rd_rst_n==1, the read is accepted; if empty==1 or reset low, no read occurs and increment empty_read_attempts; deassert i_rd_en at the next falling edge. Data comparison: after an accepted read, wait #0.001 (timescale 1ns/1ps) after the rising edge, then compare o_rd_data to the queue head; mismatch is an error. Blocking wait upper bound: 100000 read clock cycles; timeout error."
+    },
+    {
+      "id": "write_burst",
+      "description": "Write a burst of n_words sequential data words (start_data, start_data+1, ... modulo 2^32) into the FIFO, with optional gap cycles and blocking behavior.",
+      "parameters": {
+        "n_words": {
+          "type": "integer",
+          "required": true,
+          "minimum": 1,
+          "maximum": 65536,
+          "description": "Number of write requests to issue."
+        },
+        "start_data": {
+          "type": "integer",
+          "required": false,
+          "default": 0,
+          "minimum": 0,
+          "maximum": 4294967295,
+          "description": "First data word; subsequent words increment by 1 (32-bit wrap-around)."
+        },
+        "blocking": {
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "If true, each word waits until accepted (full low). If false, each word attempts once and skips if full."
+        },
+        "gap_cycles": {
+          "type": "integer",
+          "required": false,
+          "default": 0,
+          "minimum": 0,
+          "maximum": 100000,
+          "description": "Number of write clock cycles to wait between consecutive write requests after deasserting enable. 0 means continuous enable (back-to-back requests, no deassert between words)."
+        }
+      },
+      "preconditions": [
+        "Write reset (i_wr_rst_n) is released (high).",
+        "The write clock is running.",
+        "If blocking=true, ensure sufficient time to complete n_words unless timeout."
+      ],
+      "postconditions": [
+        "For blocking=true, all n_words are accepted (unless a timeout occurs); accepted_writes increments by n_words.",
+        "For blocking=false, accepted_writes increments by the number of words that found full low; full_write_attempts increments for each blocked word.",
+        "The scoreboard queue is updated with accepted write data in order.",
+        "i_wr_en is deasserted after the burst completes or aborts."
+      ],
+      "sv_binding": "exec_write_burst",
+      "execution_contract": "Imported task signature: virtual task exec_write_burst(input bit [31:0] n_words, input bit [31:0] start_data, input bit blocking, input bit [31:0] gap_cycles); Domain: write clock. The task iterates n_words times. For each word, data = (start_data + word_index) % 2^32. If gap_cycles==0, the enable remains asserted continuously between accepted words (or between attempts if non-blocking and full? For non-blocking, if full, that attempt is skipped and no enable is asserted for that cycle; but if gap_cycles==0 and non-blocking, the task should still deassert enable after a blocked attempt and then immediately attempt next word at the following falling edge, effectively one cycle gap). For gap_cycles>0, after each word attempt (accepted or blocked), deassert i_wr_en and wait gap_cycles rising edges of i_wr_clk before the next attempt. Blocking wait per word: maximum 100000 cycles. On reset assertion during burst, abort remaining words and report a timeout/error as appropriate."
+    },
+    {
+      "id": "read_burst",
+      "description": "Read a burst of n_words from the FIFO, with optional gap cycles and blocking behavior.",
+      "parameters": {
+        "n_words": {
+          "type": "integer",
+          "required": true,
+          "minimum": 1,
+          "maximum": 65536,
+          "description": "Number of read requests to issue."
+        },
+        "blocking": {
+          "type": "boolean",
+          "required": false,
+          "default": true,
+          "description": "If true, each read waits until not empty. If false, each read attempts once and skips if empty."
+        },
+        "gap_cycles": {
+          "type": "integer",
+          "required": false,
+          "default": 0,
+          "minimum": 0,
+          "maximum": 100000,
+          "description": "Number of read clock cycles to wait between consecutive read requests after deasserting enable. 0 means continuous enable."
+        }
+      },
+      "preconditions": [
+        "Read reset (i_rd_rst_n) is released (high).",
+        "The read clock is running.",
+        "If blocking=true, ensure there is sufficient data or time to complete n_words."
+      ],
+      "postconditions": [
+        "For blocking=true, all n_words are read (unless timeout); accepted_reads increments by n_words; scoreboard pops n_words and compares data.",
+        "For blocking=false, accepted_reads increments by successful reads; empty_read_attempts increments for each empty attempt.",
+        "i_rd_en is deasserted after completion."
+      ],
+      "sv_binding": "exec_read_burst",
+      "execution_contract": "Imported task signature: virtual task exec_read_burst(input bit [31:0] n_words, input bit blocking, input bit [31:0] gap_cycles); Domain: read clock. Similar to read_single but repeated n_words times. For gap_cycles==0, keep i_rd_en asserted continuously between accepted reads (or between attempts for non-blocking). For data checking, each accepted read pops the scoreboard queue and compares o_rd_data after 0.001 time unit delay. Blocking wait upper bound 100000 cycles per word."
+    },
+    {
+      "id": "reset_write",
+      "description": "Assert and release the write domain reset (i_wr_rst_n) while the read domain continues running.",
+      "parameters": {},
+      "preconditions": [
+        "Write clock is running.",
+        "No other write-domain operation from this testbench is currently in progress (enable should be deasserted)."
+      ],
+      "postconditions": [
+        "Write pointer logic (wptr_full) and read-to-write pointer synchronizer are reset: binary write pointer and Gray write pointer go to 0; o_fifo_full initially goes to 0.",
+        "The synchronized read pointer in the write domain (o_rd_ptr_sync) and its first-stage register are reset to 0, but the source read pointer in the read domain is not reset.",
+        "After reset release, the synchronizer will propagate the current read pointer from the read domain after two write clock cycles; o_fifo_full may change accordingly.",
+        "RAM contents are not cleared.",
+        "Checker updates its write-side reset epoch and discards any pending write-side expectations for the old epoch; accepted_writes counter is not reset."
+      ],
+      "sv_binding": "exec_reset_write",
+      "execution_contract": "Imported task signature: virtual task exec_reset_write(); Domain: write clock. Drive i_wr_rst_n low for at least 2 rising edges of i_wr_clk (recommend 5 cycles), then drive high. Ensure i_wr_en is deasserted before and during reset. The task should wait for the reset to be sampled by the DUT (use appropriate clock edges). After release, wait 2 write clock cycles for synchronizer settling before returning (optional but recommended). No effect on read domain."
+    },
+    {
+      "id": "reset_read",
+      "description": "Assert and release the read domain reset (i_rd_rst_n) while the write domain continues running.",
+      "parameters": {},
+      "preconditions": [
+        "Read clock is running.",
+        "No other read-domain operation is in progress (i_rd_en should be deasserted)."
+      ],
+      "postconditions": [
+        "Read pointer logic (rptr_empty) and write-to-read pointer synchronizer are reset: binary read pointer and Gray read pointer go to 0; o_fifo_empty initially goes to 1.",
+        "The synchronized write pointer in the read domain (o_wr_ptr_sync) and its first-stage register are reset to 0, but the source write pointer in the write domain is not reset.",
+        "After reset release, the synchronizer will propagate the current write pointer from the write domain after two read clock cycles; o_fifo_empty may change accordingly.",
+        "RAM contents are not cleared.",
+        "Checker updates its read-side reset epoch and discards pending read-side expectations for the old epoch; accepted_reads counter is not reset."
+      ],
+      "sv_binding": "exec_reset_read",
+      "execution_contract": "Imported task signature: virtual task exec_reset_read(); Domain: read clock. Drive i_rd_rst_n low for at least 2 rising edges of i_rd_clk (recommend 5 cycles), then high. Ensure i_rd_en is deasserted before and during reset. Wait 2 read clock cycles after release for synchronizer settling. No effect on write domain."
+    },
+    {
+      "id": "reset_both",
+      "description": "Assert and release both write and read resets concurrently to perform a coordinated reset of both clock domains.",
+      "parameters": {},
+      "preconditions": [
+        "Both write and read clocks are running.",
+        "No outstanding operations; both enables should be deasserted."
+      ],
+      "postconditions": [
+        "Both write and read pointer logic and both synchronizers are reset to zero.",
+        "Initially after release, o_fifo_empty=1 and o_fifo_full=0 (after synchronizer settling).",
+        "RAM contents are not cleared; old data remains in memory but is not considered valid for the new epoch.",
+        "Checker clears its expected data queue and pointer tracking; starts a new logical FIFO epoch; accepted_writes and accepted_reads counters are not reset (they continue accumulating for the test)."
+      ],
+      "sv_binding": "exec_reset_both",
+      "execution_contract": "Imported task signature: virtual task exec_reset_both(); Drive i_wr_rst_n and i_rd_rst_n low simultaneously (or within a small skew). Hold both low for at least 5 cycles of the faster clock (or at least 2 cycles of each domain if clocks differ, so hold long enough to cover 2 cycles of the slower clock). Then release both high. After release, wait 2 cycles of each clock to allow synchronizers to settle before returning. Any data written before this reset is logically discarded from the FIFO perspective; the scoreboard should clear its queue."
+    },
+    {
+      "id": "wait_wr_cycles",
+      "description": "Wait for a specified number of write clock cycles without driving any DUT signals.",
+      "parameters": {
+        "cycles": {
+          "type": "integer",
+          "required": true,
+          "minimum": 1,
+          "maximum": 1000000,
+          "description": "Number of write clock cycles to wait."
+        }
+      },
+      "preconditions": [
+        "Write clock is running.",
+        "i_wr_en is deasserted (if this task was driving it)."
+      ],
+      "postconditions": [
+        "At least the specified number of rising edges of i_wr_clk have occurred.",
+        "No DUT stimulus changes."
+      ],
+      "sv_binding": "exec_wait_wr_cycles",
+      "execution_contract": "Imported task signature: virtual task exec_wait_wr_cycles(input bit [31:0] cycles); Domain: write clock. Count cycles rising edges of i_wr_clk; return after count reached. If i_wr_en is currently high from this task, deassert it first and wait one extra cycle before counting."
+    },
+    {
+      "id": "wait_rd_cycles",
+      "description": "Wait for a specified number of read clock cycles without driving any DUT signals.",
+      "parameters": {
+        "cycles": {
+          "type": "integer",
+          "required": true,
+          "minimum": 1,
+          "maximum": 1000000,
+          "description": "Number of read clock cycles to wait."
+        }
+      },
+      "preconditions": [
+        "Read clock is running.",
+        "i_rd_en is deasserted."
+      ],
+      "postconditions": [
+        "At least the specified number of rising edges of i_rd_clk have occurred.",
+        "No DUT stimulus changes."
+      ],
+      "sv_binding": "exec_wait_rd_cycles",
+      "execution_contract": "Imported task signature: virtual task exec_wait_rd_cycles(input bit [31:0] cycles); Domain: read clock. Count cycles rising edges of i_rd_clk; return after count reached. Deassert i_rd_en first if needed."
+    },
+    {
+      "id": "begin_intent",
+      "description": "Mark the beginning of a verification intent for checking purposes; no DUT stimulus.",
+      "parameters": {
+        "index": {
+          "type": "integer",
+          "required": true,
+          "minimum": 0,
+          "maximum": 63,
+          "description": "Unique index identifying the intent as mapped in the plan."
+        }
+      },
+      "preconditions": [
+        "None."
+      ],
+      "postconditions": [
+        "Checker records a snapshot of current accepted_writes, accepted_reads, full_write_attempts, empty_read_attempts, and other relevant state for this intent.",
+        "No DUT signals change."
+      ],
+      "sv_binding": "exec_begin_intent",
+      "execution_contract": "Imported task signature: virtual task exec_begin_intent(input bit [31:0] index); This task only calls the checker hook to snapshot counts/state. It must not drive any DUT input."
+    },
+    {
+      "id": "end_intent",
+      "description": "Mark the end of a verification intent and perform any final per-intent checks.",
+      "parameters": {
+        "index": {
+          "type": "integer",
+          "required": true,
+          "minimum": 0,
+          "maximum": 63,
+          "description": "Unique index identifying the intent as mapped in the plan."
+        }
+      },
+      "preconditions": [
+        "A corresponding begin_intent with the same index has been executed."
+      ],
+      "postconditions": [
+        "Checker compares snapshots and performs per-intent assertions (e.g., expected transfer counts, flag observations); any mismatch increments error count and marks this intent as failed.",
+        "No DUT signals change."
+      ],
+      "sv_binding": "exec_end_intent",
+      "execution_contract": "Imported task signature: virtual task exec_end_intent(input bit [31:0] index); This task only calls the checker hook to finalize the intent. It must not drive DUT."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "pass":  true,
+  "errors": 0,
+  "intents": [
+    {"id": "basic_ordered_write_read", "pass":  true},
+    {"id": "full_detection_and_extra_write_blocking", "pass":  true},
+    {"id": "empty_detection_and_read_blocking", "pass":  true},
+    {"id": "concurrent_producer_consumer", "pass":  true},
+    {"id": "write_domain_reset_with_nonzero_read_pointer", "pass":  true},
+    {"id": "read_domain_reset_with_nonzero_read_pointer", "pass":  true},
+    {"id": "coordinated_reset_flush", "pass":  true},
+    {"id": "near_full_boundary_transition", "pass":  true},
+    {"id": "pointer_synchronization_empty_full_flags", "pass":  true},
+    {"id": "back_to_back_continuous_enable", "pass":  true}
+  ]
+}

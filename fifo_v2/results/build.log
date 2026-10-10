@@ -1,0 +1,425 @@
+%Warning-TIMESCALEMOD: generated/zsp_rt_pkg.sv:27:9: Timescale missing on this module as other modules have it (IEEE 1800-2023 3.14.2.3)
+   27 | package zsp_rt_pkg;
+      |         ^~~~~~~~~~
+                       tb/tb_async_fifo.sv:412:8: ... Location of module with timescale
+  412 | module tb_async_fifo;
+      |        ^~~~~~~~~~~~~
+                       ... For warning description see https://verilator.org/warn/TIMESCALEMOD?v=5.052
+                       ... Use "/* verilator lint_off TIMESCALEMOD */" and lint_on around source to disable this message.
+%Warning-TIMESCALEMOD: generated/zsp_gen_pkg.sv:1:9: Timescale missing on this module as other modules have it (IEEE 1800-2023 3.14.2.3)
+    1 | package zsp_gen_pkg;
+      |         ^~~~~~~~~~~
+                       tb/tb_async_fifo.sv:412:8: ... Location of module with timescale
+  412 | module tb_async_fifo;
+      |        ^~~~~~~~~~~~~
+%Warning-TIMESCALEMOD: rtl/async_fifo.sv:1:8: Timescale missing on this module as other modules have it (IEEE 1800-2023 3.14.2.3)
+    1 | module async_fifo
+      |        ^~~~~~~~~~
+                       tb/tb_async_fifo.sv:412:8: ... Location of module with timescale
+  412 | module tb_async_fifo;
+      |        ^~~~~~~~~~~~~
+%Warning-TIMESCALEMOD: rtl/fifo_memory.sv:1:8: Timescale missing on this module as other modules have it (IEEE 1800-2023 3.14.2.3)
+    1 | module fifo_memory
+      |        ^~~~~~~~~~~
+                       tb/tb_async_fifo.sv:412:8: ... Location of module with timescale
+  412 | module tb_async_fifo;
+      |        ^~~~~~~~~~~~~
+%Warning-TIMESCALEMOD: rtl/rptr_empty.sv:1:8: Timescale missing on this module as other modules have it (IEEE 1800-2023 3.14.2.3)
+    1 | module rptr_empty 
+      |        ^~~~~~~~~~
+                       tb/tb_async_fifo.sv:412:8: ... Location of module with timescale
+  412 | module tb_async_fifo;
+      |        ^~~~~~~~~~~~~
+%Warning-TIMESCALEMOD: rtl/wptr_full.sv:1:8: Timescale missing on this module as other modules have it (IEEE 1800-2023 3.14.2.3)
+    1 | module wptr_full 
+      |        ^~~~~~~~~
+                       tb/tb_async_fifo.sv:412:8: ... Location of module with timescale
+  412 | module tb_async_fifo;
+      |        ^~~~~~~~~~~~~
+%Warning-TIMESCALEMOD: rtl/read_to_write_pointer_sync.sv:1:8: Timescale missing on this module as other modules have it (IEEE 1800-2023 3.14.2.3)
+    1 | module read_to_write_pointer_sync 
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+                       tb/tb_async_fifo.sv:412:8: ... Location of module with timescale
+  412 | module tb_async_fifo;
+      |        ^~~~~~~~~~~~~
+%Warning-TIMESCALEMOD: dependencies/write_to_read_pointer_sync.sv:1:8: Timescale missing on this module as other modules have it (IEEE 1800-2023 3.14.2.3)
+    1 | module write_to_read_pointer_sync 
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+                       tb/tb_async_fifo.sv:412:8: ... Location of module with timescale
+  412 | module tb_async_fifo;
+      |        ^~~~~~~~~~~~~
+%Warning-WIDTHEXPAND: rtl/wptr_full.sv:25:35: Operator ASSIGNDLY expects 17 bits on the Assign RHS, but Assign RHS's REPLICATE generates 16 bits.
+                                            : ... note: In instance 'tb_async_fifo.dut.wptr_full_inst'
+   25 |             r_wr_bin_addr_pointer <= {p_addr_width{1'b0}};
+      |                                   ^~
+                      ... For warning description see https://verilator.org/warn/WIDTHEXPAND?v=5.052
+                      ... Use "/* verilator lint_off WIDTHEXPAND */" and lint_on around source to disable this message.
+%Warning-WIDTHEXPAND: rtl/wptr_full.sv:26:28: Operator ASSIGNDLY expects 17 bits on the Assign RHS, but Assign RHS's REPLICATE generates 16 bits.
+                                            : ... note: In instance 'tb_async_fifo.dut.wptr_full_inst'
+   26 |             o_wr_grey_addr <= {p_addr_width{1'b0}};
+      |                            ^~
+%Warning-WIDTHEXPAND: rtl/wptr_full.sv:38:75: Operator AND expects 17 bits on the LHS, but LHS's VARREF 'i_wr_en' generates 1 bits.
+                                            : ... note: In instance 'tb_async_fifo.dut.wptr_full_inst'
+   38 |     assign w_wr_next_bin_addr_pointer  = r_wr_bin_addr_pointer + (i_wr_en & ~o_fifo_full);
+      |                                                                           ^
+%Warning-WIDTHEXPAND: rtl/wptr_full.sv:38:77: Operator NOT expects 17 bits on the LHS, but LHS's VARREF 'o_fifo_full' generates 1 bits.
+                                            : ... note: In instance 'tb_async_fifo.dut.wptr_full_inst'
+   38 |     assign w_wr_next_bin_addr_pointer  = r_wr_bin_addr_pointer + (i_wr_en & ~o_fifo_full);
+      |                                                                             ^
+%Warning-WIDTHEXPAND: rtl/rptr_empty.sv:40:74: Operator AND expects 17 bits on the LHS, but LHS's VARREF 'i_rd_en' generates 1 bits.
+                                             : ... note: In instance 'tb_async_fifo.dut.rptr_empty_inst'
+   40 |     assign w_rd_next_bin_addr_pointer = r_rd_bin_addr_pointer + (i_rd_en & ~o_fifo_empty);
+      |                                                                          ^
+%Warning-WIDTHEXPAND: rtl/rptr_empty.sv:40:76: Operator NOT expects 17 bits on the LHS, but LHS's VARREF 'o_fifo_empty' generates 1 bits.
+                                             : ... note: In instance 'tb_async_fifo.dut.rptr_empty_inst'
+   40 |     assign w_rd_next_bin_addr_pointer = r_rd_bin_addr_pointer + (i_rd_en & ~o_fifo_empty);
+      |                                                                            ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:300:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  300 |         if (!_anon_pss_top__begin_intent_a.randomize() with { (index == 0); })
+      |             ^
+                     ... For warning description see https://verilator.org/warn/WIDTHTRUNC?v=5.052
+                     ... Use "/* verilator lint_off WIDTHTRUNC */" and lint_on around source to disable this message.
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:310:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  310 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:320:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  320 |         if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 16); (start_data == 0); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:330:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  330 |         if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 16); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:340:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  340 |         if (!_anon_pss_top__end_intent_a.randomize() with { (index == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:356:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  356 |         if (!_anon_pss_top__begin_intent_a.randomize() with { (index == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:366:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  366 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:376:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  376 |         if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 65536); (start_data == 0); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:386:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  386 |         if (!_anon_pss_top__write_single_a.randomize() with { (data == 0); (blocking == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:396:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  396 |         if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 65536); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:406:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  406 |         if (!_anon_pss_top__end_intent_a.randomize() with { (index == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:422:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  422 |         if (!_anon_pss_top__begin_intent_a.randomize() with { (index == 2); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:432:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  432 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:442:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  442 |         if (!_anon_pss_top__read_single_a.randomize() with { (blocking == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:452:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  452 |         if (!_anon_pss_top__write_single_a.randomize() with { (data == 3735928559); (blocking == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:462:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  462 |         if (!_anon_pss_top__read_single_a.randomize() with { (blocking == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:472:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  472 |         if (!_anon_pss_top__end_intent_a.randomize() with { (index == 2); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:488:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  488 |         if (!_anon_pss_top__begin_intent_a.randomize() with { (index == 3); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:498:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  498 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:510:15: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  510 |           if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 1000); (start_data == 0); (blocking == 1); (gap_cycles == 0); })
+      |               ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:520:15: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  520 |           if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 1000); (blocking == 1); (gap_cycles == 0); })
+      |               ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:532:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  532 |         if (!_anon_pss_top__end_intent_a.randomize() with { (index == 3); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:548:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  548 |         if (!_anon_pss_top__begin_intent_a.randomize() with { (index == 4); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:558:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  558 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:568:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  568 |         if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 5); (start_data == 0); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:578:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  578 |         if (!_anon_pss_top__read_single_a.randomize() with { (blocking == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:588:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  588 |         if (!_anon_pss_top__reset_write_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:598:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  598 |         if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 3); (start_data == 100); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:608:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  608 |         if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 2); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:618:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  618 |         if (!_anon_pss_top__reset_read_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:628:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  628 |         if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 3); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:638:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  638 |         if (!_anon_pss_top__end_intent_a.randomize() with { (index == 4); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:654:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  654 |         if (!_anon_pss_top__begin_intent_a.randomize() with { (index == 5); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:664:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  664 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:674:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  674 |         if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 3); (start_data == 200); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:684:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  684 |         if (!_anon_pss_top__read_single_a.randomize() with { (blocking == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:694:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  694 |         if (!_anon_pss_top__reset_read_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:704:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  704 |         if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 3); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:714:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  714 |         if (!_anon_pss_top__end_intent_a.randomize() with { (index == 5); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:730:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  730 |         if (!_anon_pss_top__begin_intent_a.randomize() with { (index == 6); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:740:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  740 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:750:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  750 |         if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 10); (start_data == 300); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:760:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  760 |         if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 3); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:770:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  770 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:780:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  780 |         if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 5); (start_data == 400); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:790:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  790 |         if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 5); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:800:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  800 |         if (!_anon_pss_top__end_intent_a.randomize() with { (index == 6); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:816:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  816 |         if (!_anon_pss_top__begin_intent_a.randomize() with { (index == 7); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:826:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  826 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:836:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  836 |         if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 65535); (start_data == 500); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:846:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  846 |         if (!_anon_pss_top__write_single_a.randomize() with { (data == 66035); (blocking == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:856:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  856 |         if (!_anon_pss_top__read_single_a.randomize() with { (blocking == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:866:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  866 |         if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 65535); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:876:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  876 |         if (!_anon_pss_top__end_intent_a.randomize() with { (index == 7); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:892:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  892 |         if (!_anon_pss_top__begin_intent_a.randomize() with { (index == 8); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:902:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  902 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:912:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  912 |         if (!_anon_pss_top__write_single_a.randomize() with { (data == 700); (blocking == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:922:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  922 |         if (!_anon_pss_top__wait_rd_cycles_a.randomize() with { (cycles == 200); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:932:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  932 |         if (!_anon_pss_top__read_single_a.randomize() with { (blocking == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:942:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  942 |         if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 65536); (start_data == 800); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:952:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  952 |         if (!_anon_pss_top__read_single_a.randomize() with { (blocking == 1); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:962:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  962 |         if (!_anon_pss_top__wait_wr_cycles_a.randomize() with { (cycles == 200); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:972:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  972 |         if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 65535); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:982:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  982 |         if (!_anon_pss_top__end_intent_a.randomize() with { (index == 8); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:998:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                    : ... note: In instance 'tb_async_fifo.dut'
+  998 |         if (!_anon_pss_top__begin_intent_a.randomize() with { (index == 9); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1008:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1008 |         if (!_anon_pss_top__reset_both_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1018:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1018 |         if (!_anon_pss_top__write_burst_a.randomize() with { (n_words == 100); (start_data == 900); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1028:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1028 |         if (!_anon_pss_top__read_burst_a.randomize() with { (n_words == 100); (blocking == 1); (gap_cycles == 0); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1038:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1038 |         if (!_anon_pss_top__end_intent_a.randomize() with { (index == 9); })
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1054:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1054 |         if (!_anon_pss_top__basic_ordered_write_read_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1064:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1064 |         if (!_anon_pss_top__full_detection_and_extra_write_blocking_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1074:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1074 |         if (!_anon_pss_top__empty_detection_and_read_blocking_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1084:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1084 |         if (!_anon_pss_top__concurrent_producer_consumer_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1094:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1094 |         if (!_anon_pss_top__write_domain_reset_with_nonzero_read_pointer_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1104:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1104 |         if (!_anon_pss_top__read_domain_reset_with_nonzero_read_pointer_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1114:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1114 |         if (!_anon_pss_top__coordinated_reset_flush_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1124:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1124 |         if (!_anon_pss_top__near_full_boundary_transition_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1134:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1134 |         if (!_anon_pss_top__pointer_synchronization_empty_full_flags_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1144:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1144 |         if (!_anon_pss_top__back_to_back_continuous_enable_a.randomize())
+      |             ^
+%Warning-WIDTHTRUNC: generated/zsp_gen_pkg.sv:1163:13: Logical operator LOGNOT expects 1 bit on the LHS, but LHS's METHODCALL 'randomize' generates 32 bits.
+                                                     : ... note: In instance 'tb_async_fifo.dut'
+ 1163 |         if (!root.randomize()) $fatal(1, "root action randomize failed");
+      |             ^
+%Warning-WIDTHTRUNC: tb/tb_async_fifo.sv:462:5: Logical operator IF expects 1 bit on the If, but If's VARREF 'fd' generates 32 bits.
+                                              : ... note: In instance 'tb_async_fifo'
+  462 |     if (fd) begin
+      |     ^~
+make: Entering directory '/home/pssprobe/spec2cov_fifo_practice/runs/current-agent-fifo-20261010/obj_dir'
+g++  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -Os  -c -o coverage_zero.o ../tb/coverage_zero.cpp
+g++ -Os  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o verilated.o /home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/verilated.cpp
+g++ -Os  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o verilated_dpi.o /home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/verilated_dpi.cpp
+g++ -Os  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o verilated_cov.o /home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/verilated_cov.cpp
+g++ -Os  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o verilated_covergroup.o /home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/verilated_covergroup.cpp
+g++ -Os  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o verilated_timing.o /home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/verilated_timing.cpp
+g++ -Os  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o verilated_random.o /home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/verilated_random.cpp
+g++ -Os  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -o verilated_threads.o /home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/verilated_threads.cpp
+g++ -Os  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -x c++-header Vtb_async_fifo__pch.h -o Vtb_async_fifo__pch.h.fast.gch
+g++ -Os  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -include Vtb_async_fifo__pch.h.fast -c Vtb_async_fifo_vm_classes_0.cpp
+g++ -Os  -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -include Vtb_async_fifo__pch.h.fast -c Vtb_async_fifo__Dpi.cpp
+g++   -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -c -x c++-header Vtb_async_fifo__pch.h -o Vtb_async_fifo__pch.h.slow.gch
+g++   -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -include Vtb_async_fifo__pch.h.slow -c Vtb_async_fifo___024root__Slow.cpp
+g++   -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -include Vtb_async_fifo__pch.h.slow -c Vtb_async_fifo___024root__0__Slow.cpp
+g++   -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -include Vtb_async_fifo__pch.h.slow -c Vtb_async_fifo_vm_classes_Slow_0.cpp
+g++   -I.  -MMD -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include -I/home/pssprobe/hello-pss-sv/tools/verilator-5.052/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TIMING=1 -DVM_TRACE=0 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -DVM_VPI=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable    -DVL_TIME_CONTEXT   -fcoroutines -include Vtb_async_fifo__pch.h.slow -c Vtb_async_fifo__Syms__Slow.cpp
+g++    coverage_zero.o verilated.o verilated_dpi.o verilated_cov.o verilated_covergroup.o verilated_timing.o verilated_random.o verilated_threads.o Vtb_async_fifo__ALL.a    -pthread -lpthread -latomic   -o Vtb_async_fifo
+rm Vtb_async_fifo__ALL.verilator_deplist.tmp
+make: Leaving directory '/home/pssprobe/spec2cov_fifo_practice/runs/current-agent-fifo-20261010/obj_dir'
+- V e r i l a t i o n   R e p o r t: Verilator 5.052 2026-09-05 rev v5.052
+- Verilator: Built from 0.799 MB sources in 56 modules, into 1.254 MB in 135 C++ files needing 0.007 MB
+- Verilator: Walltime 44.016 s (elab=0.019, cvt=0.078, bld=43.861); cpu 0.155 s on 1 threads; allocated 27.668 MB

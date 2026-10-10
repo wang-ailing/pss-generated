@@ -1,0 +1,25 @@
+# SystemC::Coverage-3
+C 'fdependencies/write_to_read_pointer_sync.svl16n5tlinepagev_line/write_to_read_pointer_syncoblockS16-17htb_async_fifo.dut.write_to_read_pointer_sync_inst' 338841
+C 'fdependencies/write_to_read_pointer_sync.svl18n10tbranchpagev_branch/write_to_read_pointer_syncoelseS22,24-25htb_async_fifo.dut.write_to_read_pointer_sync_inst' 338719
+C 'fdependencies/write_to_read_pointer_sync.svl18n9tbranchpagev_branch/write_to_read_pointer_syncoifS18,20-21htb_async_fifo.dut.write_to_read_pointer_sync_inst' 122
+C 'frtl/fifo_memory.svl25n5tlinepagev_line/fifo_memoryoblockS25htb_async_fifo.dut.fifo_memory_inst' 474361
+C 'frtl/fifo_memory.svl26n10tbranchpagev_branch/fifo_memoryoelsehtb_async_fifo.dut.fifo_memory_inst' 276609
+C 'frtl/fifo_memory.svl26n9tbranchpagev_branch/fifo_memoryoifS26-27htb_async_fifo.dut.fifo_memory_inst' 197752
+C 'frtl/fifo_memory.svl31n5tlinepagev_line/fifo_memoryoblockS31htb_async_fifo.dut.fifo_memory_inst' 338829
+C 'frtl/fifo_memory.svl32n10tbranchpagev_branch/fifo_memoryoelsehtb_async_fifo.dut.fifo_memory_inst' 141079
+C 'frtl/fifo_memory.svl32n9tbranchpagev_branch/fifo_memoryoifS32-33htb_async_fifo.dut.fifo_memory_inst' 197750
+C 'frtl/read_to_write_pointer_sync.svl15n5tlinepagev_line/read_to_write_pointer_syncoblockS15-16htb_async_fifo.dut.read_to_write_pointer_sync_inst' 474372
+C 'frtl/read_to_write_pointer_sync.svl17n10tbranchpagev_branch/read_to_write_pointer_syncoelseS21,23-24htb_async_fifo.dut.read_to_write_pointer_sync_inst' 474212
+C 'frtl/read_to_write_pointer_sync.svl17n9tbranchpagev_branch/read_to_write_pointer_syncoifS17,19-20htb_async_fifo.dut.read_to_write_pointer_sync_inst' 160
+C 'frtl/rptr_empty.svl23n5tlinepagev_line/rptr_emptyoblockS23-24htb_async_fifo.dut.rptr_empty_inst' 338841
+C 'frtl/rptr_empty.svl25n10tbranchpagev_branch/rptr_emptyoelseS29,31-32htb_async_fifo.dut.rptr_empty_inst' 338719
+C 'frtl/rptr_empty.svl25n9tbranchpagev_branch/rptr_emptyoifS25,27-28htb_async_fifo.dut.rptr_empty_inst' 122
+C 'frtl/rptr_empty.svl51n5tlinepagev_line/rptr_emptyoblockS51htb_async_fifo.dut.rptr_empty_inst' 338841
+C 'frtl/rptr_empty.svl52n10tbranchpagev_branch/rptr_emptyoelseS55,57htb_async_fifo.dut.rptr_empty_inst' 338719
+C 'frtl/rptr_empty.svl52n9tbranchpagev_branch/rptr_emptyoifS52,54htb_async_fifo.dut.rptr_empty_inst' 122
+C 'frtl/wptr_full.svl22n5tlinepagev_line/wptr_fulloblockS22htb_async_fifo.dut.wptr_full_inst' 474372
+C 'frtl/wptr_full.svl23n10tbranchpagev_branch/wptr_fulloelseS27,29-30htb_async_fifo.dut.wptr_full_inst' 474212
+C 'frtl/wptr_full.svl23n9tbranchpagev_branch/wptr_fulloifS23,25-26htb_async_fifo.dut.wptr_full_inst' 160
+C 'frtl/wptr_full.svl48n5tlinepagev_line/wptr_fulloblockS48htb_async_fifo.dut.wptr_full_inst' 474372
+C 'frtl/wptr_full.svl49n10tbranchpagev_branch/wptr_fulloelseS52,54htb_async_fifo.dut.wptr_full_inst' 474212
+C 'frtl/wptr_full.svl49n9tbranchpagev_branch/wptr_fulloifS49,51htb_async_fifo.dut.wptr_full_inst' 160

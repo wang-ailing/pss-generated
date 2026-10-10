@@ -1,5 +1,16 @@
 # PSS Generated
 
+## fifo_v2：当前 Agent 新生成并跑通
+
+本次 DeepSeek 新生成 PSS 和 SV，随后真实执行 PSSC 与 Verilator，10/10 意图通过、错误数 0。line/branch/expr 覆盖率 100%，toggle 95.99%。
+
+- [fifo_v2 产物目录](fifo_v2/)
+- [PSS](fifo_v2/model/fifo.pss) · [SV](fifo_v2/tb/tb_async_fifo.sv)
+- [Linux 仿真和覆盖率步骤](fifo_v2/LINUX_WALKTHROUGH.md)
+- [测试报告及各阶段产物](fifo_v2/TEST_REPORT.md)
+
+## fifo：上一轮已有代码回放结果
+
 这里保存异步 FIFO 的 Spec、PSS 模型、SystemVerilog 测试平台、PSSC 生成的 SV 和 DUT 源码。
 
 示例已在 Linux 上完成 PSS 解析、SV 生成、Verilator 编译、仿真和覆盖率统计。该次运行复用了之前 DeepSeek 生成的 PSS/SV，并重新执行全部 EDA 步骤。

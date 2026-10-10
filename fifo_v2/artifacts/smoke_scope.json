@@ -1,0 +1,103 @@
+{
+  "scope": "User-requested coverage smoke; no claim of complete verification or coverage closure.",
+  "source_run": "runs/coverage-smoke-20261010-retry2",
+  "source_run_id": "e010ed1ee9b545ddadf864236a841aa5",
+  "source_outcome": "cancelled",
+  "sources": {
+    "request": {
+      "path": "runs/coverage-smoke-20261010-retry2/artifacts/request.json",
+      "sha256": "0c8ae6260f75c0df7906b3941afa9c3d56119339bb851ab062e7066c30b161d4",
+      "bytes": 39717
+    },
+    "report": {
+      "path": "runs/coverage-smoke-20261010-retry2/artifacts/report.json",
+      "sha256": "e68630860bce501a8b405b0542199cac4dc051374ff8f5d0041f9dbfbfdbaff8",
+      "bytes": 22374
+    },
+    "atomic_decomposition": {
+      "path": "runs/coverage-smoke-20261010-retry2/artifacts/atomic_decomposition.json",
+      "sha256": "3a2e6cd0f6c10d619d4a37016f162cb2f8d0da43c52c7e195c5d972bd75e0d42",
+      "bytes": 18458
+    },
+    "verification_plan": {
+      "path": "runs/coverage-smoke-20261010-retry2/artifacts/verification_plan.json",
+      "sha256": "a8f4ded5455cd306c4b65e8619fdc0f34c093ca6ce4e3268f74428920959ea04",
+      "bytes": 14868
+    },
+    "composition": {
+      "path": "runs/coverage-smoke-20261010-retry2/artifacts/composition.json",
+      "sha256": "27d6022ba442fe18b3ebe1c1853179f7b4b8c01aac85dd0af1c814bc47f84987",
+      "bytes": 12701
+    },
+    "execution_feedback": {
+      "path": "inputs/current-agent-execution-feedback.json",
+      "sha256": "c5553507cd0e32481dddb5709bee532d0746d072c567bb04456e9d40203d96b1",
+      "bytes": 2356
+    },
+    "previous_project": {
+      "path": "runs/coverage-smoke-20261010-retry2/artifacts/project.json",
+      "sha256": "0524c55a5446f077cd9d9d1b349669fffc1f8898ef304f0c8d2de21a136cc70a",
+      "bytes": 23171
+    }
+  },
+  "historical_reuse": [
+    "atomic_decomposition",
+    "verification_plan",
+    "composition"
+  ],
+  "semantic_reviews": {
+    "planning_review": {
+      "status": "skipped_by_user_smoke_scope",
+      "accepted": null
+    },
+    "composition_review": {
+      "status": "skipped_by_user_smoke_scope",
+      "accepted": null
+    }
+  },
+  "invocations": {
+    "atomic_decomposition": {
+      "historical_reuses": 1,
+      "live_role_invocations": 0
+    },
+    "verification_plan": {
+      "historical_reuses": 1,
+      "live_role_invocations": 0
+    },
+    "composition": {
+      "historical_reuses": 1,
+      "live_role_invocations": 0
+    },
+    "codegen": {
+      "historical_reuses": 0,
+      "live_role_invocations": 1
+    }
+  },
+  "execution_repair": {
+    "guidance": [
+      "Repair previous_project from the current Agent run; preserve all ten intent IDs, their scenario order, DUT parameters, scoreboard data checks, and functional report schema. Do not use the historical coverage-replay project.",
+      "Observed failure: the previous project parsed/generated/compiled successfully, but simulation had not returned after more than five minutes and was explicitly cancelled. This was not a completed simulation or an observed functional PASS.",
+      "Concrete compiler evidence: generated/zsp_gen_pkg.sv has empty c_blocking_default and c_gap_default constraints. The PSS soft defaults were not emitted. The depth-65536 bursts bind n_words but allow gap_cycles up to 100000 and freely randomized blocking.",
+      "Explicitly hard-bind blocking == 1 and gap_cycles == 0 in every ordinary write_burst_a/read_burst_a traversal. Explicitly bind blocking == 1 for every ordinary write_single_a/read_single_a traversal, including formerly unconstrained do read_single_a calls. Keep blocking == 0 for the full-write and empty-read illegal attempts. Do not hard-lock the action-level blocking field to 1 because that conflicts with those two boundary attempts. Do not rely on soft defaults.",
+      "Add concise runtime progress: print each begin/end intent and every burst n_words/blocking/gap_cycles, without printing each word. Add an independent module-level global simulation watchdog at 20000000 ns that calls $fatal with the current intent on timeout. Existing clocks use ns timescale. Normal deterministic scenarios should finish well below this limit.",
+      "Keep every SystemVerilog declaration before statements in its lexical block, including initial-block file descriptor and task local variables. The previous repair already fixed declaration-placement compile errors; preserve those fixes.",
+      "Preserve the RTL, DUT wiring, real RAM-shadow data checking, cumulative counters and per-intent deltas. Do not clear physical RAM assumptions on a single-domain reset. Keep the accepted plan replay sequences unchanged.",
+      "Scope is only to finish execution and produce coverage, not increase coverage or add scenarios. Return the complete GeneratedProject JSON with PSS and SV files. Keep pss_entry model/fifo.pss, top_action pss_top::main_a, and testbench tb/tb_async_fifo.sv."
+    ],
+    "previous_project": {
+      "path": "runs/coverage-smoke-20261010-retry2/artifacts/project.json",
+      "sha256": "0524c55a5446f077cd9d9d1b349669fffc1f8898ef304f0c8d2de21a136cc70a",
+      "bytes": 23171
+    }
+  },
+  "tool_timeout_seconds": 180,
+  "provider": {
+    "base_url": "https://api.deepseek.com",
+    "model": "deepseek-v4-pro",
+    "reasoning_effort": "low",
+    "max_output_tokens": 131072,
+    "context_budget": 128000
+  },
+  "outcome": "success",
+  "run_id": "5035325be8644a7fb1ffc1a746cab8d9"
+}

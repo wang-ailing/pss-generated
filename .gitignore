@@ -3,3 +3,5 @@ __pycache__/
 /fifo/runs/
 /fifo/obj_dir/
 /fifo/results/
+/fifo_v2/runs/
+/fifo_v2/obj_dir/

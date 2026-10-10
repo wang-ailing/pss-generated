@@ -1,0 +1,6 @@
+DUT-only coverage (covered / instrumented points):
+  line: 100.00% (8/8)
+  branch: 100.00% (16/16)
+  toggle: 95.99% (1196/1246)
+  expr: 100.00% (15/15)
+Report: /home/pssprobe/spec2cov_fifo_practice/runs/current-agent-fifo-20261010/results/coverage.json
