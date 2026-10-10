@@ -6,7 +6,7 @@
 
 - [fifo_v2 产物目录](fifo_v2/)
 - [PSS](fifo_v2/model/fifo.pss) · [SV](fifo_v2/tb/tb_async_fifo.sv)
-- [Linux 仿真和覆盖率步骤](fifo_v2/LINUX_WALKTHROUGH.md)
+- [编译、仿真和覆盖率指令](fifo_v2/README.md)
 - [测试报告及各阶段产物](fifo_v2/TEST_REPORT.md)
 
 ## fifo：上一轮已有代码回放结果
