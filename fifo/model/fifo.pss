@@ -1,0 +1,329 @@
+package platform_pkg {
+  import target function void exec_reset_write_domain(bit[32] hold_cycles);
+  import target function void exec_reset_read_domain(bit[32] hold_cycles);
+  import target function void exec_reset_both_domains(bit[32] hold_cycles);
+  import target function void exec_write_word(bit[32] data, bit[1] blocking);
+  import target function void exec_read_word(bit[1] blocking);
+  import target function void exec_write_burst(bit[32] count, bit[32] start_data, bit[32] increment, bit[32] gap_cycles, bit[1] blocking);
+  import target function void exec_read_burst(bit[32] count, bit[32] gap_cycles, bit[1] blocking);
+  import target function void exec_write_random_burst(bit[32] count, bit[32] seed, bit[32] min_data, bit[32] max_data, bit[32] gap_cycles, bit[1] blocking);
+  import target function void exec_write_random_gap_burst(bit[32] count, bit[32] start_data, bit[32] increment, bit[32] seed, bit[32] min_gap, bit[32] max_gap, bit[1] blocking);
+  import target function void exec_read_random_gap_burst(bit[32] count, bit[32] seed, bit[32] min_gap, bit[32] max_gap, bit[1] blocking);
+  import target function void exec_wait_write_cycles(bit[32] num_cycles);
+  import target function void exec_wait_read_cycles(bit[32] num_cycles);
+  import target function void exec_sample_full();
+  import target function void exec_sample_empty();
+  import target function void exec_reset_scoreboard();
+  import target function void exec_write_walking_burst(bit[32] pattern, bit[32] gap_cycles, bit[1] blocking);
+  import target function void exec_write_random_data_gap_burst(bit[32] count, bit[32] data_seed, bit[32] gap_seed, bit[32] min_data, bit[32] max_data, bit[32] min_gap, bit[32] max_gap, bit[1] blocking);
+  import target function void exec_read_random_data_gap_burst(bit[32] count, bit[32] gap_seed, bit[32] min_gap, bit[32] max_gap, bit[1] blocking);
+  import target function void begin_intent(bit[32] index);
+  import target function void end_intent(bit[32] index);
+}
+import platform_pkg::*;
+
+component pss_top {
+  action reset_write_domain {
+    rand bit[32] hold_cycles;
+    exec body { exec_reset_write_domain(hold_cycles); }
+  }
+  action reset_read_domain {
+    rand bit[32] hold_cycles;
+    exec body { exec_reset_read_domain(hold_cycles); }
+  }
+  action reset_both_domains {
+    rand bit[32] hold_cycles;
+    exec body { exec_reset_both_domains(hold_cycles); }
+  }
+  action write_word {
+    rand bit[32] data;
+    rand bit[1] blocking;
+    exec body { exec_write_word(data, blocking); }
+  }
+  action read_word {
+    rand bit[1] blocking;
+    exec body { exec_read_word(blocking); }
+  }
+  action write_burst {
+    rand bit[32] count;
+    rand bit[32] start_data;
+    rand bit[32] increment;
+    rand bit[32] gap_cycles;
+    rand bit[1] blocking;
+    exec body { exec_write_burst(count, start_data, increment, gap_cycles, blocking); }
+  }
+  action read_burst {
+    rand bit[32] count;
+    rand bit[32] gap_cycles;
+    rand bit[1] blocking;
+    exec body { exec_read_burst(count, gap_cycles, blocking); }
+  }
+  action write_random_burst {
+    rand bit[32] count;
+    rand bit[32] seed;
+    rand bit[32] min_data;
+    rand bit[32] max_data;
+    rand bit[32] gap_cycles;
+    rand bit[1] blocking;
+    exec body { exec_write_random_burst(count, seed, min_data, max_data, gap_cycles, blocking); }
+  }
+  action write_random_gap_burst {
+    rand bit[32] count;
+    rand bit[32] start_data;
+    rand bit[32] increment;
+    rand bit[32] seed;
+    rand bit[32] min_gap;
+    rand bit[32] max_gap;
+    rand bit[1] blocking;
+    exec body { exec_write_random_gap_burst(count, start_data, increment, seed, min_gap, max_gap, blocking); }
+  }
+  action read_random_gap_burst {
+    rand bit[32] count;
+    rand bit[32] seed;
+    rand bit[32] min_gap;
+    rand bit[32] max_gap;
+    rand bit[1] blocking;
+    exec body { exec_read_random_gap_burst(count, seed, min_gap, max_gap, blocking); }
+  }
+  action wait_write_cycles {
+    rand bit[32] num_cycles;
+    exec body { exec_wait_write_cycles(num_cycles); }
+  }
+  action wait_read_cycles {
+    rand bit[32] num_cycles;
+    exec body { exec_wait_read_cycles(num_cycles); }
+  }
+  action sample_full {
+    exec body { exec_sample_full(); }
+  }
+  action sample_empty {
+    exec body { exec_sample_empty(); }
+  }
+  action reset_scoreboard {
+    exec body { exec_reset_scoreboard(); }
+  }
+  action write_walking_burst {
+    rand bit[32] pattern;
+    rand bit[32] gap_cycles;
+    rand bit[1] blocking;
+    exec body { exec_write_walking_burst(pattern, gap_cycles, blocking); }
+  }
+  action write_random_data_gap_burst {
+    rand bit[32] count;
+    rand bit[32] data_seed;
+    rand bit[32] gap_seed;
+    rand bit[32] min_data;
+    rand bit[32] max_data;
+    rand bit[32] min_gap;
+    rand bit[32] max_gap;
+    rand bit[1] blocking;
+    constraint min_data_c { min_data == 0; }
+    constraint max_data_c { max_data == 4294967295; }
+    constraint min_gap_c { min_gap == 0; }
+    exec body { exec_write_random_data_gap_burst(count, data_seed, gap_seed, min_data, max_data, min_gap, max_gap, blocking); }
+  }
+  action read_random_data_gap_burst {
+    rand bit[32] count;
+    rand bit[32] gap_seed;
+    rand bit[32] min_gap;
+    rand bit[32] max_gap;
+    rand bit[1] blocking;
+    constraint min_gap_c { min_gap == 0; }
+    exec body { exec_read_random_data_gap_burst(count, gap_seed, min_gap, max_gap, blocking); }
+  }
+  action begin_intent_a {
+    rand bit[32] index;
+    exec body { begin_intent(index); }
+  }
+  action end_intent_a {
+    rand bit[32] index;
+    exec body { end_intent(index); }
+  }
+
+  action reset_initialization_a {
+    activity {
+      do begin_intent_a with { index == 0; };
+      do reset_both_domains with { hold_cycles == 5; };
+      parallel {
+        do wait_write_cycles with { num_cycles == 10; };
+        do wait_read_cycles with { num_cycles == 10; };
+      }
+      parallel {
+        do sample_full;
+        do sample_empty;
+      }
+      do end_intent_a with { index == 0; };
+    }
+  }
+  action single_write_read_roundtrip_a {
+    activity {
+      do begin_intent_a with { index == 1; };
+      do write_word with { data == 2779096485; blocking == 1; };
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do read_word with { blocking == 1; };
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do end_intent_a with { index == 1; };
+    }
+  }
+  action fill_to_full_and_block_a {
+    activity {
+      do begin_intent_a with { index == 2; };
+      do write_burst with { count == 65536; start_data == 0; increment == 1; gap_cycles == 0; blocking == 1; };
+      do wait_write_cycles with { num_cycles == 10; };
+      do sample_full;
+      do write_burst with { count == 10; start_data == 65536; increment == 1; gap_cycles == 0; blocking == 0; };
+      do wait_write_cycles with { num_cycles == 10; };
+      do read_burst with { count == 1; gap_cycles == 0; blocking == 1; };
+      do wait_write_cycles with { num_cycles == 10; };
+      do sample_full;
+      do read_burst with { count == 65535; gap_cycles == 0; blocking == 1; };
+      do end_intent_a with { index == 2; };
+    }
+  }
+  action read_empty_underflow_a {
+    activity {
+      do begin_intent_a with { index == 3; };
+      do read_burst with { count == 10; gap_cycles == 0; blocking == 0; };
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do write_word with { data == 42; blocking == 1; };
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do read_word with { blocking == 1; };
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do end_intent_a with { index == 3; };
+    }
+  }
+  action sequential_data_integrity_a {
+    activity {
+      do begin_intent_a with { index == 4; };
+      do write_burst with { count == 1000; start_data == 0; increment == 65538; gap_cycles == 0; blocking == 1; };
+      do read_burst with { count == 1000; gap_cycles == 0; blocking == 1; };
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do end_intent_a with { index == 4; };
+    }
+  }
+  action concurrent_producer_consumer_a {
+    activity {
+      do begin_intent_a with { index == 5; };
+      parallel {
+        do write_burst with { count == 2000; start_data == 0; increment == 1; gap_cycles == 0; blocking == 1; };
+        do read_burst with { count == 2000; gap_cycles == 0; blocking == 1; };
+      }
+      do end_intent_a with { index == 5; };
+    }
+  }
+  action pointer_sync_flag_transitions_a {
+    activity {
+      do begin_intent_a with { index == 6; };
+      do write_burst with { count == 65530; start_data == 0; increment == 1; gap_cycles == 0; blocking == 1; };
+      do wait_write_cycles with { num_cycles == 10; };
+      do sample_full;
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do write_burst with { count == 6; start_data == 65530; increment == 1; gap_cycles == 0; blocking == 1; };
+      do wait_write_cycles with { num_cycles == 10; };
+      do sample_full;
+      do read_burst with { count == 1; gap_cycles == 0; blocking == 1; };
+      do wait_write_cycles with { num_cycles == 10; };
+      do sample_full;
+      do read_burst with { count == 65535; gap_cycles == 0; blocking == 1; };
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do end_intent_a with { index == 6; };
+    }
+  }
+  action coordinated_reset_mid_operation_a {
+    activity {
+      do begin_intent_a with { index == 7; };
+      do write_burst with { count == 100; start_data == 0; increment == 1; gap_cycles == 0; blocking == 1; };
+      do read_burst with { count == 30; gap_cycles == 0; blocking == 1; };
+      do reset_both_domains with { hold_cycles == 5; };
+      parallel {
+        do wait_write_cycles with { num_cycles == 10; };
+        do wait_read_cycles with { num_cycles == 10; };
+      }
+      parallel {
+        do sample_full;
+        do sample_empty;
+      }
+      do write_word with { data == 12345; blocking == 1; };
+      do read_word with { blocking == 1; };
+      do end_intent_a with { index == 7; };
+    }
+  }
+  action wrap_around_and_full_range_a {
+    activity {
+      do begin_intent_a with { index == 8; };
+      parallel {
+        do write_burst with { count == 80000; start_data == 0; increment == 1; gap_cycles == 0; blocking == 1; };
+        do read_burst with { count == 80000; gap_cycles == 0; blocking == 1; };
+      }
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do end_intent_a with { index == 8; };
+    }
+  }
+  action randomized_stress_pattern_a {
+    activity {
+      do begin_intent_a with { index == 9; };
+      do write_burst with { count == 65530; start_data == 0; increment == 1; gap_cycles == 0; blocking == 1; };
+      do write_random_data_gap_burst with {
+        count == 6;
+        data_seed == 12345;
+        gap_seed == 67890;
+        min_data == 0;
+        max_data == 4294967295;
+        min_gap == 0;
+        max_gap == 5;
+        blocking == 1;
+      };
+      do wait_write_cycles with { num_cycles == 10; };
+      do sample_full;
+      do write_random_data_gap_burst with {
+        count == 20;
+        data_seed == 11111;
+        gap_seed == 22222;
+        min_data == 0;
+        max_data == 4294967295;
+        min_gap == 0;
+        max_gap == 5;
+        blocking == 0;
+      };
+      do read_burst with { count == 65536; gap_cycles == 0; blocking == 1; };
+      do wait_write_cycles with { num_cycles == 10; };
+      do sample_full;
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do read_random_data_gap_burst with {
+        count == 20;
+        gap_seed == 33333;
+        min_gap == 0;
+        max_gap == 5;
+        blocking == 0;
+      };
+      do wait_read_cycles with { num_cycles == 10; };
+      do sample_empty;
+      do end_intent_a with { index == 9; };
+    }
+  }
+
+  action main_a {
+    activity {
+      do reset_initialization_a;
+      do single_write_read_roundtrip_a;
+      do fill_to_full_and_block_a;
+      do read_empty_underflow_a;
+      do sequential_data_integrity_a;
+      do concurrent_producer_consumer_a;
+      do pointer_sync_flag_transitions_a;
+      do coordinated_reset_mid_operation_a;
+      do wrap_around_and_full_range_a;
+      do randomized_stress_pattern_a;
+    }
+  }
+}

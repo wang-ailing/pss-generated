@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "reference_run": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010",
+  "scope": "Source snapshot used by a fresh EDA rerun of retained DeepSeek-generated PSS/SV.",
+  "files": [
+    {
+      "path": "model/fifo.pss",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/model/fifo.pss",
+      "bytes": 12302,
+      "sha256": "6e6ba943ade0e9cf87008fa609de5018888eafda85facdc63707c3ffa58a9261"
+    },
+    {
+      "path": "tb/tb_async_fifo.sv",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/tb/tb_async_fifo.sv",
+      "bytes": 53374,
+      "sha256": "a3ef344a9d1877308b78f3e458dbe4b8bbb5c0d577dce508304a1b2aedd670e5"
+    },
+    {
+      "path": "tb/coverage_zero.cpp",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/tb/coverage_zero.cpp",
+      "bytes": 138,
+      "sha256": "7814b6eaa1bc8ff9df9cadd747989a1bbd8efb197d6151114421bb59d25518d8"
+    },
+    {
+      "path": "generated/zsp_gen_pkg.sv",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/generated/zsp_gen_pkg.sv",
+      "bytes": 71504,
+      "sha256": "58b991078c16abbebd89c1b423292e84a6ad999a15f356c5a0b9cb3c1a8b1c02"
+    },
+    {
+      "path": "generated/zsp_rt_pkg.sv",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/generated/zsp_rt_pkg.sv",
+      "bytes": 8169,
+      "sha256": "991c45238486ad5d5d1ae72bf4da8a1cc5ae29ef6b106e30476f9a64c9b2f9be"
+    },
+    {
+      "path": "generated/zsp_filelist.f",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/generated/zsp_filelist.f",
+      "bytes": 29,
+      "sha256": "f149a27589962d32b1aaba25441fe1c1ce98c326fc592248f8fcc8df20b918e2"
+    },
+    {
+      "path": "rtl/async_fifo.sv",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/rtl/async_fifo.sv",
+      "bytes": 4036,
+      "sha256": "994c976e3e182d143dceb1babf66cefee424b09827c6a1e209a762cc1d43de42"
+    },
+    {
+      "path": "rtl/fifo_memory.sv",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/rtl/fifo_memory.sv",
+      "bytes": 1698,
+      "sha256": "f17de773eb5c2a95854a1fc5e720448f9d97c55f45ff382684dbf6feab3f3c22"
+    },
+    {
+      "path": "rtl/read_to_write_pointer_sync.sv",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/rtl/read_to_write_pointer_sync.sv",
+      "bytes": 1299,
+      "sha256": "68588eb63996c3d779e41bc9d4bdaf85e479c78fe6f68264ff84056e6c7ab843"
+    },
+    {
+      "path": "rtl/rptr_empty.sv",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/rtl/rptr_empty.sv",
+      "bytes": 2985,
+      "sha256": "8fe56fd6cca3645e33ad190eb882f0382bb90dc7e7669f461f8024d64c9e3809"
+    },
+    {
+      "path": "rtl/wptr_full.sv",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/rtl/wptr_full.sv",
+      "bytes": 3043,
+      "sha256": "2977faa704aa2d389301a3023f6ff1026b5c1410d2e095daae2a4575e2ee3fec"
+    },
+    {
+      "path": "dependencies/write_to_read_pointer_sync.sv",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/dependencies/write_to_read_pointer_sync.sv",
+      "bytes": 1263,
+      "sha256": "a9e2462c54ea92f146416800e5d4b74d8a385cada094855a9c2727120488d1f2"
+    },
+    {
+      "path": "dependencies/CVDP_LICENSE",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/dependencies/CVDP_LICENSE",
+      "bytes": 11873,
+      "sha256": "cedcd612607018ad841d87d7f1c877630778a50c71692610fe76acdc22700719"
+    },
+    {
+      "path": "dependencies/CVDP_NOTICE",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/dependencies/CVDP_NOTICE",
+      "bytes": 6813,
+      "sha256": "3d8753e57eab52910ccb61a1ee09113c43e9382ccd98d5860b5621aff8d932dd"
+    },
+    {
+      "path": "scripts/report_coverage.py",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/scripts/report_coverage.py",
+      "bytes": 11786,
+      "sha256": "693513876962b3c995f40f65d6708f1f20cb8c26eb956014b2e13ee31457ab57"
+    },
+    {
+      "path": "rtl/load_memory.sv",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/source_project/rtl/load_memory.sv",
+      "bytes": 9553,
+      "sha256": "fcf9b9f3c6739fbd6e610ec299229118b48a40960ae8916b9ceb020d4fd5a558"
+    },
+    {
+      "path": "docs/fifo.md",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/inputs/fifo.md",
+      "bytes": 13753,
+      "sha256": "5cae2d2919fbe5e0daa99ab04034c29323f4c7600a73c9d73639bb5701b93d4e"
+    },
+    {
+      "path": "SOURCE.json",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/SOURCE.json",
+      "bytes": 7135,
+      "sha256": "d0cc8d6f804173e62966b97f73ccb438a9e3537ec5e71d2a40fe288d4924637b"
+    },
+    {
+      "path": "reference_results/coverage.json",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/results/coverage.json",
+      "bytes": 9646,
+      "sha256": "cdc44afa512761e6e2ebc601d7158618ba6ff1abefea0dc94b156de61eda2476"
+    },
+    {
+      "path": "reference_results/functional.json",
+      "linux_source": "/home/pssprobe/spec2cov_fifo_practice/runs/coverage-replay-20261010/results/functional.json",
+      "bytes": 15999,
+      "sha256": "deede0ef873680ca54055fd35331339c95f6abe032c731cb108c7b24e51af220"
+    }
+  ]
+}

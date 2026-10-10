@@ -1,0 +1,120 @@
+{
+  "repository": "https://github.com/advent-lab/Spec2Cov",
+  "commit": "98ddc836668c81d116e0bb9a7faf8f56b2c58cdb",
+  "repository_directory": "data/cvdp_agentic_async_fifo_compute_ram_application/rtl",
+  "requested_url": "https://github.com/advent-lab/Spec2Cov/tree/main/data/cvdp_agentic_async_fifo_compute_ram_application/rtl",
+  "files": [
+    {
+      "local_path": "rtl/async_fifo.sv",
+      "repository_path": "data/cvdp_agentic_async_fifo_compute_ram_application/rtl/async_fifo.sv",
+      "url": "https://raw.githubusercontent.com/advent-lab/Spec2Cov/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb/data/cvdp_agentic_async_fifo_compute_ram_application/rtl/async_fifo.sv",
+      "sha256": "994c976e3e182d143dceb1babf66cefee424b09827c6a1e209a762cc1d43de42",
+      "bytes": 4036,
+      "modified": false
+    },
+    {
+      "local_path": "rtl/fifo_memory.sv",
+      "repository_path": "data/cvdp_agentic_async_fifo_compute_ram_application/rtl/fifo_memory.sv",
+      "url": "https://raw.githubusercontent.com/advent-lab/Spec2Cov/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb/data/cvdp_agentic_async_fifo_compute_ram_application/rtl/fifo_memory.sv",
+      "sha256": "f17de773eb5c2a95854a1fc5e720448f9d97c55f45ff382684dbf6feab3f3c22",
+      "bytes": 1698,
+      "modified": false
+    },
+    {
+      "local_path": "rtl/load_memory.sv",
+      "repository_path": "data/cvdp_agentic_async_fifo_compute_ram_application/rtl/load_memory.sv",
+      "url": "https://raw.githubusercontent.com/advent-lab/Spec2Cov/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb/data/cvdp_agentic_async_fifo_compute_ram_application/rtl/load_memory.sv",
+      "sha256": "fcf9b9f3c6739fbd6e610ec299229118b48a40960ae8916b9ceb020d4fd5a558",
+      "bytes": 9553,
+      "modified": false
+    },
+    {
+      "local_path": "rtl/read_to_write_pointer_sync.sv",
+      "repository_path": "data/cvdp_agentic_async_fifo_compute_ram_application/rtl/read_to_write_pointer_sync.sv",
+      "url": "https://raw.githubusercontent.com/advent-lab/Spec2Cov/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb/data/cvdp_agentic_async_fifo_compute_ram_application/rtl/read_to_write_pointer_sync.sv",
+      "sha256": "68588eb63996c3d779e41bc9d4bdaf85e479c78fe6f68264ff84056e6c7ab843",
+      "bytes": 1299,
+      "modified": false
+    },
+    {
+      "local_path": "rtl/rptr_empty.sv",
+      "repository_path": "data/cvdp_agentic_async_fifo_compute_ram_application/rtl/rptr_empty.sv",
+      "url": "https://raw.githubusercontent.com/advent-lab/Spec2Cov/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb/data/cvdp_agentic_async_fifo_compute_ram_application/rtl/rptr_empty.sv",
+      "sha256": "8fe56fd6cca3645e33ad190eb882f0382bb90dc7e7669f461f8024d64c9e3809",
+      "bytes": 2985,
+      "modified": false
+    },
+    {
+      "local_path": "rtl/wptr_full.sv",
+      "repository_path": "data/cvdp_agentic_async_fifo_compute_ram_application/rtl/wptr_full.sv",
+      "url": "https://raw.githubusercontent.com/advent-lab/Spec2Cov/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb/data/cvdp_agentic_async_fifo_compute_ram_application/rtl/wptr_full.sv",
+      "sha256": "2977faa704aa2d389301a3023f6ff1026b5c1410d2e095daae2a4575e2ee3fec",
+      "bytes": 3043,
+      "modified": false
+    }
+  ],
+  "spec": {
+    "repository_path": "data/cvdp_agentic_async_fifo_compute_ram_application/docs/fifo.md",
+    "url": "https://github.com/advent-lab/Spec2Cov/blob/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb/data/cvdp_agentic_async_fifo_compute_ram_application/docs/fifo.md"
+  },
+  "repository_license": {
+    "status": "No LICENSE, COPYING, or NOTICE file found at repository root or in this design directory at the pinned commit.",
+    "upstream_files_have_license_headers": false
+  },
+  "missing_dependency": {
+    "module": "write_to_read_pointer_sync",
+    "original_repository_status": "Referenced by async_fifo.sv; no module declaration found anywhere in pinned repository RTL (*.sv, *.v).",
+    "local_path": "dependencies/write_to_read_pointer_sync.sv",
+    "source_dataset": "https://huggingface.co/datasets/nvidia/cvdp-benchmark-dataset",
+    "dataset_revision": "5b807d945f6a99aa645f7e43a64a2115e281b4bf",
+    "dataset_file": "cvdp_v1.0.2_agentic_code_generation_no_commercial.jsonl",
+    "dataset_url": "https://huggingface.co/datasets/nvidia/cvdp-benchmark-dataset/resolve/5b807d945f6a99aa645f7e43a64a2115e281b4bf/cvdp_v1.0.2_agentic_code_generation_no_commercial.jsonl",
+    "dataset_sha256": "9c6cb36bac3a8e2e8183a68f9304c49029fa48b7992d156d02b123c9ce1673a5",
+    "record_id": "cvdp_agentic_async_fifo_compute_ram_application_0006",
+    "context_key": "rtl/write_to_read_pointer_sync.sv",
+    "extracted_as": "UTF-8 without BOM; context string preserved without code edits.",
+    "sha256": "a9e2462c54ea92f146416800e5d4b74d8a385cada094855a9c2727120488d1f2",
+    "bytes": 1263,
+    "validation": "The four other FIFO submodule context files match Spec2Cov downloads after line-ending normalization.",
+    "license_documents": [
+      {
+        "local_path": "dependencies/CVDP_LICENSE",
+        "url": "https://huggingface.co/datasets/nvidia/cvdp-benchmark-dataset/resolve/5b807d945f6a99aa645f7e43a64a2115e281b4bf/LICENSE",
+        "sha256": "cedcd612607018ad841d87d7f1c877630778a50c71692610fe76acdc22700719",
+        "bytes": 11873
+      },
+      {
+        "local_path": "dependencies/CVDP_NOTICE",
+        "url": "https://huggingface.co/datasets/nvidia/cvdp-benchmark-dataset/resolve/5b807d945f6a99aa645f7e43a64a2115e281b4bf/NOTICE",
+        "sha256": "3d8753e57eab52910ccb61a1ee09113c43e9382ccd98d5860b5621aff8d932dd",
+        "bytes": 6813
+      }
+    ]
+  },
+  "hierarchy": {
+    "top": "async_fifo",
+    "instantiated_modules": [
+      "read_to_write_pointer_sync",
+      "write_to_read_pointer_sync",
+      "wptr_full",
+      "fifo_memory",
+      "rptr_empty"
+    ],
+    "not_instantiated_source": {
+      "file": "rtl/load_memory.sv",
+      "module": "raw_memory",
+      "reason": "Associated RAM application module, outside the async_fifo DUT hierarchy."
+    }
+  },
+  "rtl_review": {
+    "data_width_default": 32,
+    "address_width_default": 16,
+    "depth_default": 65536,
+    "accepted_write": "On rising i_wr_clk, i_wr_en && !o_fifo_full advances write pointer and writes RAM. RAM is not gated by i_wr_rst_n.",
+    "accepted_read": "On rising i_rd_clk, i_rd_en && !o_fifo_empty advances read pointer. RAM read register updates whenever i_rd_en regardless of empty/reset.",
+    "read_output": "Synchronous registered output after rising i_rd_clk; not FWFT; no reset initialization of RAM or output register.",
+    "empty_read": "Does not advance read pointer; can update o_rd_data from current RAM address, including stale/uninitialized memory. No expected zero/hold value is specified.",
+    "reset": "Active-low asynchronous pointer/synchronizer reset in each domain; full=0, empty=1. Drive both enables low while resetting.",
+    "pointer_synchronization": "Two flip-flop stages each direction; full/empty flags are registered, so remote operations become visible after synchronization plus flag update."
+  }
+}
