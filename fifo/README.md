@@ -202,4 +202,4 @@ PY
 - Spec 和原始 RTL：[Spec2Cov 固定提交](https://github.com/advent-lab/Spec2Cov/tree/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb/data/cvdp_agentic_async_fifo_compute_ram_application)。
 - 原仓库引用但缺少的 `write_to_read_pointer_sync` 来自 NVIDIA CVDP 数据集的同一 FIFO 示例，原文、许可和 NOTICE 一并保留。
 - [SOURCE.json](SOURCE.json) 保存具体来源及各 RTL 文件 SHA-256。
-- [TRANSFER_MANIFEST.json](TRANSFER_MANIFEST.json) 保存本次上传文件与 Linux 来源文件的字节数和 SHA-256。
+- [TRANSFER_MANIFEST.json](TRANSFER_MANIFEST.json) 保存首次上传文件与 Linux 来源文件的字节数和 SHA-256。`model/fifo.pss` 后续仅新增了各 action 的中文说明注释；当前文件哈希以仓库根目录的 [SHA256SUMS](../SHA256SUMS) 为准。

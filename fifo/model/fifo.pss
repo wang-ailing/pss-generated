@@ -24,27 +24,33 @@ import platform_pkg::*;
 
 component pss_top {
   action reset_write_domain {
+    // 元动作：执行写时钟域复位，保持指定周期；用于构造写指针和满标志的复位场景。
     rand bit[32] hold_cycles;
     exec body { exec_reset_write_domain(hold_cycles); }
   }
   action reset_read_domain {
+    // 元动作：执行读时钟域复位，保持指定周期；用于构造读指针和空标志的复位场景。
     rand bit[32] hold_cycles;
     exec body { exec_reset_read_domain(hold_cycles); }
   }
   action reset_both_domains {
+    // 元动作：协调复位读写两域；用于检查复位后的指针状态、满空标志和后续读写恢复。
     rand bit[32] hold_cycles;
     exec body { exec_reset_both_domains(hold_cycles); }
   }
   action write_word {
+    // 元动作：写入一个数据字；blocking=1 等待可写，blocking=0 用于尝试满时写入。
     rand bit[32] data;
     rand bit[1] blocking;
     exec body { exec_write_word(data, blocking); }
   }
   action read_word {
+    // 元动作：读取一个数据字并由 SV 参考模型核对；blocking=0 可用于尝试空时读取。
     rand bit[1] blocking;
     exec body { exec_read_word(blocking); }
   }
   action write_burst {
+    // 元动作：按起始值、递增量和固定间隔批量写入；用于数据顺序、容量边界和回绕场景。
     rand bit[32] count;
     rand bit[32] start_data;
     rand bit[32] increment;
@@ -53,12 +59,14 @@ component pss_top {
     exec body { exec_write_burst(count, start_data, increment, gap_cycles, blocking); }
   }
   action read_burst {
+    // 元动作：按固定间隔批量读取并核对数据；用于顺序读回、排空和并发读写场景。
     rand bit[32] count;
     rand bit[32] gap_cycles;
     rand bit[1] blocking;
     exec body { exec_read_burst(count, gap_cycles, blocking); }
   }
   action write_random_burst {
+    // 元动作：按 seed 生成指定范围的随机数据，以固定间隔写入；用于丰富写入数据模式。
     rand bit[32] count;
     rand bit[32] seed;
     rand bit[32] min_data;
@@ -68,6 +76,7 @@ component pss_top {
     exec body { exec_write_random_burst(count, seed, min_data, max_data, gap_cycles, blocking); }
   }
   action write_random_gap_burst {
+    // 元动作：写入递增数据并随机化写间隔；用于扰动生产者节拍和跨时钟域交互。
     rand bit[32] count;
     rand bit[32] start_data;
     rand bit[32] increment;
@@ -78,6 +87,7 @@ component pss_top {
     exec body { exec_write_random_gap_burst(count, start_data, increment, seed, min_gap, max_gap, blocking); }
   }
   action read_random_gap_burst {
+    // 元动作：随机化读间隔并核对读回数据；用于扰动消费者节拍和跨时钟域交互。
     rand bit[32] count;
     rand bit[32] seed;
     rand bit[32] min_gap;
@@ -86,29 +96,36 @@ component pss_top {
     exec body { exec_read_random_gap_burst(count, seed, min_gap, max_gap, blocking); }
   }
   action wait_write_cycles {
+    // 元动作：等待指定写时钟周期，为跨域读指针同步及写域满标志更新预留时间。
     rand bit[32] num_cycles;
     exec body { exec_wait_write_cycles(num_cycles); }
   }
   action wait_read_cycles {
+    // 元动作：等待指定读时钟周期，为跨域写指针同步及读域空标志更新预留时间。
     rand bit[32] num_cycles;
     exec body { exec_wait_read_cycles(num_cycles); }
   }
   action sample_full {
+    // 元动作：记录满标志和当前读写统计，供复合动作结束时检查满边界及满标志变化。
     exec body { exec_sample_full(); }
   }
   action sample_empty {
+    // 元动作：记录空标志和当前读写统计，供复合动作结束时检查空边界及空标志变化。
     exec body { exec_sample_empty(); }
   }
   action reset_scoreboard {
+    // 辅助动作：清空 SV 参考队列，将剩余数据计入复位丢弃统计；不驱动 DUT 复位。
     exec body { exec_reset_scoreboard(); }
   }
   action write_walking_burst {
+    // 元动作：写入 32 个位行走数据；pattern=0 为 walking-1，否则为 walking-0，用于数据位翻转。
     rand bit[32] pattern;
     rand bit[32] gap_cycles;
     rand bit[1] blocking;
     exec body { exec_write_walking_burst(pattern, gap_cycles, blocking); }
   }
   action write_random_data_gap_burst {
+    // 元动作：用独立种子生成随机写数据和随机写间隔；用于边界场景中的数据与节拍扰动。
     rand bit[32] count;
     rand bit[32] data_seed;
     rand bit[32] gap_seed;
@@ -123,6 +140,7 @@ component pss_top {
     exec body { exec_write_random_data_gap_burst(count, data_seed, gap_seed, min_data, max_data, min_gap, max_gap, blocking); }
   }
   action read_random_data_gap_burst {
+    // 元动作：随机化读间隔，读数据仍来自 DUT 并由 SV 核对；用于空边界读请求和节拍扰动。
     rand bit[32] count;
     rand bit[32] gap_seed;
     rand bit[32] min_gap;
@@ -132,15 +150,18 @@ component pss_top {
     exec body { exec_read_random_data_gap_burst(count, gap_seed, min_gap, max_gap, blocking); }
   }
   action begin_intent_a {
+    // 辅助动作：按 index 标记验证意图开始，保存读写、错误和标志采样等统计基线。
     rand bit[32] index;
     exec body { begin_intent(index); }
   }
   action end_intent_a {
+    // 辅助动作：按 index 检查该意图的实际操作、数据及标志结果，记录通过或失败。
     rand bit[32] index;
     exec body { end_intent(index); }
   }
 
   action reset_initialization_a {
+    // 复合动作：复位两域并等待状态稳定，检查初始满标志为 0、空标志为 1。
     activity {
       do begin_intent_a with { index == 0; };
       do reset_both_domains with { hold_cycles == 5; };
@@ -156,6 +177,7 @@ component pss_top {
     }
   }
   action single_write_read_roundtrip_a {
+    // 复合动作：写入并读回一个 0xA5A5A5A5，检查数据一致及空标志的解除和恢复。
     activity {
       do begin_intent_a with { index == 1; };
       do write_word with { data == 2779096485; blocking == 1; };
@@ -168,6 +190,7 @@ component pss_top {
     }
   }
   action fill_to_full_and_block_a {
+    // 复合动作：写满 65536 个字后额外尝试写 10 次，检查满时拒写；读出一个字后检查满解除并排空。
     activity {
       do begin_intent_a with { index == 2; };
       do write_burst with { count == 65536; start_data == 0; increment == 1; gap_cycles == 0; blocking == 1; };
@@ -183,6 +206,7 @@ component pss_top {
     }
   }
   action read_empty_underflow_a {
+    // 复合动作：空时尝试读 10 次，检查读指针不前进及空标志保持；再写入并读回 42，检查恢复。
     activity {
       do begin_intent_a with { index == 3; };
       do read_burst with { count == 10; gap_cycles == 0; blocking == 0; };
@@ -198,6 +222,7 @@ component pss_top {
     }
   }
   action sequential_data_integrity_a {
+    // 复合动作：写入并按序读回 1000 个递增数据字，检查数据完整性、顺序和最终空状态。
     activity {
       do begin_intent_a with { index == 4; };
       do write_burst with { count == 1000; start_data == 0; increment == 65538; gap_cycles == 0; blocking == 1; };
@@ -208,6 +233,7 @@ component pss_top {
     }
   }
   action concurrent_producer_consumer_a {
+    // 复合动作：在异步读写时钟下并行写入、读出各 2000 个字，检查并发数据顺序和完整性。
     activity {
       do begin_intent_a with { index == 5; };
       parallel {
@@ -218,6 +244,7 @@ component pss_top {
     }
   }
   action pointer_sync_flag_transitions_a {
+    // 复合动作：依次经历近满、写满、读出一个字和排空，检查跨域指针同步对应的满空标志变化。
     activity {
       do begin_intent_a with { index == 6; };
       do write_burst with { count == 65530; start_data == 0; increment == 1; gap_cycles == 0; blocking == 1; };
@@ -238,6 +265,7 @@ component pss_top {
     }
   }
   action coordinated_reset_mid_operation_a {
+    // 复合动作：写 100 个字、读 30 个字后复位两域，检查逻辑丢弃剩余数据和复位状态，再验证读写恢复。
     activity {
       do begin_intent_a with { index == 7; };
       do write_burst with { count == 100; start_data == 0; increment == 1; gap_cycles == 0; blocking == 1; };
@@ -257,6 +285,7 @@ component pss_top {
     }
   }
   action wrap_around_and_full_range_a {
+    // 复合动作：并行写入、读出各 80000 个字，超过 FIFO 深度以触发地址回绕，检查数据顺序和最终空状态。
     activity {
       do begin_intent_a with { index == 8; };
       parallel {
@@ -269,6 +298,8 @@ component pss_top {
     }
   }
   action randomized_stress_pattern_a {
+    // 复合动作：依次经历近满、写满、满时写、排空和空时读，并施加随机数据与随机间隔。
+    // 检查有效数据读回一致，以及满时拒写、空时拒读。
     activity {
       do begin_intent_a with { index == 9; };
       do write_burst with { count == 65530; start_data == 0; increment == 1; gap_cycles == 0; blocking == 1; };
@@ -313,6 +344,7 @@ component pss_top {
   }
 
   action main_a {
+    // 顶层动作：顺序执行 10 个验证场景，覆盖复位、读写、容量边界、跨域同步、回绕和随机压力。
     activity {
       do reset_initialization_a;
       do single_write_read_roundtrip_a;

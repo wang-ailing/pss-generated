@@ -13,4 +13,4 @@
 
 已有运行的 10 条测试意图全部通过；DUT 的行、分支、表达式覆盖率为 100%，翻转覆盖率为 98.555377%。完整统计见 [coverage.json](fifo/reference_results/coverage.json)，功能检查见 [functional.json](fifo/reference_results/functional.json)。
 
-Spec 和 RTL 来自 Spec2Cov，固定提交为 `98ddc836668c81d116e0bb9a7faf8f56b2c58cdb`。源码来源、补充依赖及其许可说明保存在 [SOURCE.json](fifo/SOURCE.json) 和 [dependencies](fifo/dependencies/) 中；文件传输哈希见 [TRANSFER_MANIFEST.json](fifo/TRANSFER_MANIFEST.json)。
+Spec 和 RTL 来自 Spec2Cov，固定提交为 `98ddc836668c81d116e0bb9a7faf8f56b2c58cdb`。源码来源、补充依赖及其许可说明保存在 [SOURCE.json](fifo/SOURCE.json) 和 [dependencies](fifo/dependencies/) 中；首次上传文件的传输哈希见 [TRANSFER_MANIFEST.json](fifo/TRANSFER_MANIFEST.json)，当前文件哈希见 [SHA256SUMS](SHA256SUMS)。
