@@ -1,94 +1,121 @@
-# 当前 Agent 新生成 FIFO：Linux 实战报告
+# 异步 FIFO 验证报告
 
-日期：2026-10-10（北京时间）。
+## 验证环境
 
-**当前 Agent 新生成的 PSS/SV 已跑通，且产出真实覆盖率。** 本轮通过配置的 DeepSeek `deepseek-v4-pro` 执行代码生成角色 1 次，沿用当前 Agent 之前的元动作目录、验证计划、拼接方案及失败候选作为上下文。PSS、SV testbench 和覆盖率辅助 C++ 是本轮模型返回文件，未手工改写。随后 PSSC 解析与生成、Verilator 编译与仿真、覆盖率统计全部通过。仿真日志记录 walltime 2.086 秒。
+案例使用 Accellera Portable Test and Stimulus Standard（PSS）描述测试场景，通过 PSSC 生成 SystemVerilog，并由 Verilator 执行 DUT 仿真与覆盖率采集。
 
-本轮的三个较早阶段各复用 1 次，代码生成阶段没有复用旧输出。模型语义评审按用户“只打通，不提高覆盖率”的范围跳过，accepted 为 null，不能视作评审通过。本次成功与此前旧代码回放区分保存。
+| 配置项 | 值 |
+| --- | --- |
+| DUT | 异步 FIFO，含双时钟域指针同步与存储模块 |
+| 数据宽度 | 32 bit |
+| 地址宽度 | 16 bit |
+| FIFO 深度 | 65536 |
+| 随机种子 | 42 |
+| PSS 语法 | PSS 3.0 的 PSSC 支持子集 |
+| PSSC | 0.1.0，commit `c44287ec3493b62ccbcbbe4505f9dbfb35604e4e` |
+| Verilator | 5.052 |
+| 代码生成模型 | DeepSeek `deepseek-v4-pro` |
+| 功能判定 | `pass=true`、`errors=0`、10/10 意图通过 |
 
-## 当前代码与产物位置
+DUT 来自 Spec2Cov 的异步 FIFO 案例。补齐的 `write_to_read_pointer_sync.sv` 依赖、来源和许可证记录在 [SOURCE.json](SOURCE.json) 与 [dependencies/](dependencies/) 中。参与仿真的六份 DUT/依赖源码在执行前后 SHA-256 一致。
 
-Linux 根目录：`/home/pssprobe/spec2cov_fifo_practice/runs/current-agent-fifo-20261010`。
+## 功能场景
 
-| 阶段 | 本实战文件夹内的产物 | 本次来源 |
+[functional.json](results/functional.json) 记录各验证意图的结果：
+
+| 验证意图 | 检查内容 | 结果 |
 | --- | --- | --- |
-| 输入 | [request.json](artifacts/request.json)、[SOURCE.json](SOURCE.json) | Spec、完整六份 RTL 内容、工具配置与来源 |
-| 元动作 | [atomic_decomposition.json](artifacts/atomic_decomposition.json) | 沿用前一阶段 |
-| 验证计划 | [verification_plan.json](artifacts/verification_plan.json) | 沿用前一阶段 |
-| 拼接方案 | [composition.json](artifacts/composition.json) | 沿用前一阶段 |
-| Agent 生成 PSS | [model/fifo.pss](model/fifo.pss) | 本轮真实 DeepSeek 新输出 |
-| Agent 生成 SV | [tb/tb_async_fifo.sv](tb/tb_async_fifo.sv) | 本轮真实 DeepSeek 新输出，连接 DUT、执行和检查 |
-| 模型返回完整工程 | [project.json](artifacts/project.json) | 与实际源码逐字节核对 |
-| PSSC 解析 | [model.ir.yaml](results/model.ir.yaml) | 本轮工具执行 |
-| PSSC 生成 SV | [zsp_gen_pkg.sv](generated/zsp_gen_pkg.sv)、[zsp_rt_pkg.sv](generated/zsp_rt_pkg.sv) | 由本轮 PSS 编译生成 |
-| 功能结果 | [functional.json](results/functional.json) | 本轮新仿真 |
-| 覆盖率 | [coverage.json](results/coverage.json)、[coverage.dat](results/coverage.dat)、[dut.info](results/dut.info) | 本轮新仿真和统计 |
-| 工具轨迹 | [toolchain.json](results/toolchain.json)、[simulate.log](results/simulate.log) | 实际命令、时间、退出码与日志 |
-| 调用与复用记录 | [smoke_scope.json](artifacts/smoke_scope.json)、[report.json](artifacts/report.json) | outcome=success，codegen live role invocations=1 |
+| `basic_ordered_write_read` | 基本写入、读取与数据顺序 | PASS |
+| `full_detection_and_extra_write_blocking` | 满标志与额外写入阻止 | PASS |
+| `empty_detection_and_read_blocking` | 空标志与空队列读取阻止 | PASS |
+| `concurrent_producer_consumer` | 并发生产与消费 | PASS |
+| `write_domain_reset_with_nonzero_read_pointer` | 读指针非零时的写域复位 | PASS |
+| `read_domain_reset_with_nonzero_read_pointer` | 读指针非零时的读域复位与数据重放 | PASS |
+| `coordinated_reset_flush` | 双域协同复位与清空 | PASS |
+| `near_full_boundary_transition` | 接近满状态的边界转换 | PASS |
+| `pointer_synchronization_empty_full_flags` | 指针同步与空满标志更新 | PASS |
+| `back_to_back_continuous_enable` | 连续使能读写 | PASS |
 
-## 测试与结果
+仿真日志记录的运行耗时为 2.086 秒。该值来自已保存的执行记录，实际耗时随运行环境变化。
 
-32 bit 数据、16 bit 地址、65536 深度、种子 42。功能结果为 pass=true、errors=0，十条意图均通过：
+## 覆盖率指标与范围
 
-- `basic_ordered_write_read`：通过。
-- `full_detection_and_extra_write_blocking`：通过。
-- `empty_detection_and_read_blocking`：通过。
-- `concurrent_producer_consumer`：通过。
-- `write_domain_reset_with_nonzero_read_pointer`：通过。
-- `read_domain_reset_with_nonzero_read_pointer`：通过。
-- `coordinated_reset_flush`：通过。
-- `near_full_boundary_transition`：通过。
-- `pointer_synchronization_empty_full_flags`：通过。
-- `back_to_back_continuous_enable`：通过。
+[coverage.json](results/coverage.json) 保存指标、统计范围与文件信息：
 
-| 类型 | 命中/插桩点 | 百分比 |
+| 类型 | 命中/插桩点 | 覆盖率 |
 | --- | --- | --- |
 | line | 8/8 | 100.00% |
 | branch | 16/16 | 100.00% |
 | toggle | 1196/1246 | 95.99% |
 | expr | 15/15 | 100.00% |
 
-统计 `async_fifo` 和其已实例化子模块。分母是 Verilator 插桩点；testbench、PSS 运行时及未实例化的 load_memory 不计入 DUT。默认 max-width 256 时 RAM 数组翻转不计入分母。原仓库 RTL 单独统计翻转 1090/1140（95.61%），其余三类 100%；完整 DUT 翻转含补齐的 write_to_read_pointer_sync 依赖。DUT 六份源码执行前后哈希相同。源码与依赖出处、许可证见 SOURCE.json。
+统计对象为 `async_fifo` 及其已实例化子模块，包括补齐的 `write_to_read_pointer_sync` 依赖。分母是 Verilator 实际插桩点；testbench、PSS 运行时与未实例化的 `load_memory` 不纳入 DUT 指标。
 
-按用户范围，不继续提高覆盖率，也不将本次结果解释成完整功能验证。本轮 functional.json 没有 observations 字段；此前回放中的写读计数不能套用到本轮。
+Verilator 默认 `max-width=256` 时，RAM 数组翻转点不计入分母。仅统计原仓库 RTL 时，toggle 为 1090/1140（95.61%），line、branch、expr 均为 100%。完整 DUT 与原仓库 RTL 两种统计范围不可混用。
 
-## 打通了什么
+功能结果与代码覆盖率共同描述所列场景的执行情况；覆盖率指标不代表完整功能验证。
 
-前一候选 PSS 使用 soft blocking/gap 默认约束；PSSC 生成的 SV 中相关约束为空。字数固定而间隔仍可取 0..100000，阻塞模式也未确定，导致长时间运行。该生成机制已由文件核实，前次随机值没有记录。
+## 产物索引
 
-本轮将具体诊断与 previous_project 交给当前代码生成 Agent。新 PSS 对普通读写显式绑定 blocking=1、burst gap_cycles=0，两个边界非法尝试保留 blocking=0；SV 加入意图和 burst 参数进度，以及独立 20 ms watchdog。新仿真日志确认实际参数为 blocking=1、gap_cycles=0，并完成十个场景。
+以下路径相对于 `fifo_v2/`：
 
-案例入口新增 `--execution-feedback` 和 `--tool-timeout`；反馈、前一项目及其他来源均保存 SHA，后续自动修复优先使用最新候选。`--check-only` 与本轮真实模型/EDA 运行已验证；没有重新执行全面回归。
+| 阶段 | 产物 | 用途 |
+| --- | --- | --- |
+| 输入 | [request.json](artifacts/request.json)、[SOURCE.json](SOURCE.json) | Spec、完整 DUT/依赖 RTL、工具配置与来源 |
+| 元动作分解 | [atomic_decomposition.json](artifacts/atomic_decomposition.json) | 元动作目录 |
+| 验证规划 | [verification_plan.json](artifacts/verification_plan.json) | 验证意图与检查目标 |
+| 动作组合 | [composition.json](artifacts/composition.json) | 意图到复合动作及顶层组合的映射 |
+| Agent 生成 PSS | [fifo.pss](model/fifo.pss) | 测试场景模型 |
+| Agent 生成 SV | [tb_async_fifo.sv](tb/tb_async_fifo.sv) | DUT 接口、动作执行、检查与功能结果 |
+| 模型工程输出 | [project.json](artifacts/project.json) | 模型返回的完整工程文件 |
+| PSSC 中间表示 | [model.ir.yaml](results/model.ir.yaml) | PSS 解析结果 |
+| PSSC 生成 SV | [zsp_gen_pkg.sv](generated/zsp_gen_pkg.sv)、[zsp_rt_pkg.sv](generated/zsp_rt_pkg.sv) | 动作实现与运行时包 |
+| 功能检查 | [functional.json](results/functional.json) | 通过状态、错误数与各意图结果 |
+| 覆盖率 | [coverage.json](results/coverage.json)、[coverage.dat](results/coverage.dat)、[dut.info](results/dut.info) | 指标、原始数据与 LCOV 数据 |
+| 工具执行 | [toolchain.json](results/toolchain.json)、[simulate.log](results/simulate.log) | 命令、退出码、时间与日志 |
+| 工作流状态 | [report.json](artifacts/report.json)、[smoke_scope.json](artifacts/smoke_scope.json) | 阶段结果、模型调用与复用记录 |
+| 执行反馈 | [execution-feedback.json](artifacts/execution-feedback.json) | 代码生成的诊断输入 |
 
-## 工具执行
+## 生成来源与执行策略
+
+代码生成角色执行了 1 次实时模型调用。元动作分解、验证规划和动作组合三个阶段各复用 1 份已有产物。PSS、SV testbench 和覆盖率辅助 C++ 来自模型返回工程，与落盘文件逐字节核对，未手工改写。
+
+模型语义评审被跳过，`accepted=null`；该状态不属于评审通过。工作流状态为 `outcome=success`，工具执行结果为 `success=true`、`functional_pass=true`。阶段状态与调用范围以 [report.json](artifacts/report.json) 和 [smoke_scope.json](artifacts/smoke_scope.json) 为准。
+
+模型采用显式执行约束：普通读写绑定 `blocking=1`，burst 绑定 `gap_cycles=0`，两个边界非法尝试保留 `blocking=0`。这些绑定避免依赖工具未落实的 soft 默认约束。testbench 提供意图与 burst 参数进度输出，并设有独立 20 ms 仿真 watchdog；[simulate.log](results/simulate.log) 记录实际参数与全部场景的完成状态。
+
+外部 Agent 生成入口支持 `--execution-feedback` 与 `--tool-timeout`。仓库保存其配置与产物，Agent 实现及生成入口脚本不在本仓库中。反馈、输入工程及其他来源保存 SHA-256，自动修复使用最新候选工程。入口输入检查和模型/EDA 执行已验证；此结果不包含全面回归。
+
+## 工具执行检查
 
 | 步骤 | 返回码 | 日志 |
 | --- | --- | --- |
-| versions_python | 0 | [results/versions_python.log](results/versions_python.log) |
-| versions_pssc | 0 | [results/versions_pssc.log](results/versions_pssc.log) |
-| versions_verilator | 0 | [results/versions_verilator.log](results/versions_verilator.log) |
-| parse | 0 | [results/parse.log](results/parse.log) |
-| generate | 0 | [results/generate.log](results/generate.log) |
-| build | 0 | [results/build.log](results/build.log) |
-| simulate | 0 | [results/simulate.log](results/simulate.log) |
-| coverage | 0 | [results/coverage.log](results/coverage.log) |
+| versions_python | 0 | [versions_python.log](results/versions_python.log) |
+| versions_pssc | 0 | [versions_pssc.log](results/versions_pssc.log) |
+| versions_verilator | 0 | [versions_verilator.log](results/versions_verilator.log) |
+| parse | 0 | [parse.log](results/parse.log) |
+| generate | 0 | [generate.log](results/generate.log) |
+| build | 0 | [build.log](results/build.log) |
+| simulate | 0 | [simulate.log](results/simulate.log) |
+| coverage | 0 | [coverage.log](results/coverage.log) |
 
-工具为用户 PSSC main 对应的 commit c44287ec3493b62ccbcbbe4505f9dbfb35604e4e（PSSC 0.1.0）与 Verilator 5.052。全部 8 步返回 0，report outcome=success，toolchain success=true，functional_pass=true。
+## Makefile 验收
 
-## Linux 操作与保存的指令
+[Makefile](Makefile) 使用仓库内已生成的 SV，完成编译、仿真、功能检查和覆盖率统计。验收结果为 10/10 意图通过、`errors=0`；line、branch、expr 为 100%，toggle 为 1196/1246（95.99%）。该流程不调用模型或重新生成 PSS。
 
-直接按 [LINUX_WALKTHROUGH.md](LINUX_WALKTHROUGH.md) 的 1～8 步操作：新建练习目录，解析 PSS，生成 SV，编译，仿真，检查功能结果，再导出覆盖率。不需要再次调用模型或配置密钥。
+| 验收项 | 结果 |
+| --- | --- |
+| `make all` | 编译、仿真、功能检查与覆盖率统计成功 |
+| 缓存状态下的 `make all` | 复用编译与仿真结果 |
+| 显式 `make sim` | 重跑仿真，不重复编译 |
+| 随后的 `make coverage` | 使用最新仿真数据 |
+| `make clean RUN_DIR=outside-runs` | 拒绝删除 `runs/` 外的目录 |
+| `make clean` | 删除选定的运行目录 |
 
-真实代码生成命令见 [SMOKE_COMMANDS.md](SMOKE_COMMANDS.md) 的 current-agent 章节。专用反馈位于 [current-agent-execution-feedback.json](artifacts/execution-feedback.json)，完整输入、目录、计划、拼接方案及返回工程位于本轮 artifacts。原始用户目标见 [prompt.md](prompt.md)。
+命令、源码哈希和结果见 [Makefile 验收 JSON](evidence/fifo-v2-makefile-validation-20261010.json)；日志与结果保存在 [Makefile 验收 ZIP](evidence/fifo-v2-makefile-validation-20261010.zip)。
 
-公开证据包：[原始证据 ZIP](evidence/current-agent-fifo-20261010-evidence.zip)和[原始清单](evidence/current-agent-fifo-20261010-evidence-manifest.json)，逐文件校验 61 项。ZIP 内保留原始 Linux 运行目录结构。
+## 复现与证据
 
-当前仓库目录是 fifo_v2；[TRANSFER_MANIFEST.json](TRANSFER_MANIFEST.json)保存逐字节复制文件与原产物的对应关系。文档路径已适配仓库。上一轮回放结果保留在 [fifo](../fifo/README.md)。
+使用 [README](README.md) 中的 Makefile 指令复现已有 SV 的编译、仿真和覆盖率。需要从 PSS 重新生成 SV 时，按 [Linux 操作指南](LINUX_WALKTHROUGH.md) 执行。代码生成配置与命令见 [SMOKE_COMMANDS.md](SMOKE_COMMANDS.md)，任务输入见 [prompt.md](prompt.md)。
 
-## Makefile 复现验收
-
-2026-10-10，在 Linux 独立目录使用仓库已有生成 SV 实际执行 `make all`，编译、仿真、功能检查和覆盖率统计成功。10/10 意图通过、errors=0，line/branch/expr 100%，toggle 1196/1246（95.99%）。此次没有模型调用或 PSSC 重新生成。
-
-已验证缓存 `make all` 不重复编译/仿真、显式 `make sim` 重跑且不重编译、随后 `make coverage` 复用该次数据。`make clean` 拒绝 runs 外的验证目录，允许删除选定运行目录；日志和结果在清理前保存。源码与上传文件 SHA-256 一致。
-
-[Makefile](Makefile)、[验收 JSON](evidence/fifo-v2-makefile-validation-20261010.json) 和 [日志与结果 ZIP](evidence/fifo-v2-makefile-validation-20261010.zip) 一并保存。运行命令见 [README](README.md) 的 Makefile 章节。
+[证据 ZIP](evidence/current-agent-fifo-20261010-evidence.zip) 与 [逐文件清单](evidence/current-agent-fifo-20261010-evidence-manifest.json) 保存原始运行目录结构，清单包含 61 项文件校验。[TRANSFER_MANIFEST.json](TRANSFER_MANIFEST.json) 记录首次传输时的来源、文件对应关系与哈希。文档标准化后，当前仓库文件的校验以根目录 [SHA256SUMS](../SHA256SUMS) 为准；首次传输清单不用于校验修改后的文档。PSS、SV、RTL 与原始结果保持原样。证据文件名中的时间戳用于标识运行记录。

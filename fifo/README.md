@@ -1,38 +1,38 @@
-# Async FIFO：PSS、SV、DUT 与覆盖率
+# 基础异步 FIFO 验证示例
 
-## 文件位置
+本示例使用 Accellera Portable Test and Stimulus Standard（PSS）描述验证场景，通过 PSSC 生成 SystemVerilog（SV）场景代码，接入异步 FIFO DUT，并使用 Verilator 完成功能仿真和代码覆盖率统计。
+
+`model/fifo.pss` 和 `tb/tb_async_fifo.sv` 来自已有 DeepSeek 生成工程；本目录保存其可执行模型及独立工具链运行结果。PSSC 生成文件位于 `generated/`，编译与仿真不需要调用模型服务。
+
+## 模型与接口
+
+DUT 顶层为 `async_fifo`，默认 `p_data_width=32`、`p_addr_width=16`，容量为 65536 个数据字。
+
+| 接口 | 信号 | 语义 |
+|---|---|---|
+| 写时钟域 | `i_wr_clk`、`i_wr_rst_n` | 写时钟及低有效复位 |
+| 写请求 | `i_wr_en`、`i_wr_data`、`o_fifo_full` | 写使能、写入数据和满标志 |
+| 读时钟域 | `i_rd_clk`、`i_rd_rst_n` | 读时钟及低有效复位 |
+| 读请求 | `i_rd_en`、`o_rd_data`、`o_fifo_empty` | 读使能、读取数据和空标志 |
+
+PSS 模型在 `pss_top` 中定义复位、读写、批量传输、随机数据与间隔、等待和标志采样等元动作。复合动作组合这些元动作表达验证意图，顶层入口为 `pss_top::main_a`。`exec body` 调用 `platform_pkg` 的 target 函数，由 SV testbench 实现 DUT 驱动、参考模型和结果检查。
+
+## 目录结构
 
 | 文件 | 用途 |
 |---|---|
-| [docs/fifo.md](docs/fifo.md) | FIFO Spec |
-| [model/fifo.pss](model/fifo.pss) | PSS 元动作、复合动作与顶层 `pss_top::main_a` |
-| [tb/tb_async_fifo.sv](tb/tb_async_fifo.sv) | 对接 DUT、执行激励、维护参考模型并检查结果 |
+| [docs/fifo.md](docs/fifo.md) | FIFO 规范 |
+| [model/fifo.pss](model/fifo.pss) | PSS 元动作、复合动作和顶层入口 |
+| [tb/tb_async_fifo.sv](tb/tb_async_fifo.sv) | DUT 连接、激励、参考模型和功能检查 |
 | [tb/coverage_zero.cpp](tb/coverage_zero.cpp) | 覆盖计数初始化辅助代码 |
-| [generated/zsp_gen_pkg.sv](generated/zsp_gen_pkg.sv) | PSSC 编译 PSS 产生的 SV |
-| [generated/zsp_rt_pkg.sv](generated/zsp_rt_pkg.sv) | 配套 SV 运行库 |
-| [rtl](rtl/) | Spec2Cov 原始 DUT 与关联 RAM 应用模块 |
-| [dependencies](dependencies/) | 补充的指针同步模块和原始许可文件 |
-| [scripts/report_coverage.py](scripts/report_coverage.py) | 筛选 DUT 覆盖数据并生成报告 |
-| [reference_results](reference_results/) | 已有成功运行的功能检查和覆盖率 |
+| [generated/zsp_gen_pkg.sv](generated/zsp_gen_pkg.sv) | PSSC 生成的 SV 场景代码 |
+| [generated/zsp_rt_pkg.sv](generated/zsp_rt_pkg.sv) | PSSC SV 运行库 |
+| [rtl](rtl/) | Spec2Cov 原始 DUT 及关联 RAM 应用模块 |
+| [dependencies](dependencies/) | 补充指针同步模块和原始许可文件 |
+| [scripts/report_coverage.py](scripts/report_coverage.py) | DUT 覆盖数据筛选和报告生成 |
+| [reference_results](reference_results/) | 参考运行的功能检查和覆盖率结果 |
 
-## 已有运行结果
-
-2026-10-10 在 Linux 的 `coverage-replay-20261010` 目录重新执行了 PSS 解析、SV 生成、Verilator 编译、仿真和覆盖率统计，各步骤退出码均为 0。该次执行使用此前 DeepSeek 生成的 PSS/SV；该次执行没有新的模型调用。
-
-10 条测试意图全部通过，错误数为 0。检查了复位、单次读写、写满与阻止溢出、读空、数据顺序、并发读写、指针同步与标志变化、运行中协调复位、指针回绕和随机激励。
-
-| 覆盖类型 | 已覆盖 / 总插桩点 | 覆盖率 |
-|---|---:|---:|
-| 行 | 8 / 8 | 100% |
-| 分支 | 16 / 16 | 100% |
-| 表达式 | 15 / 15 | 100% |
-| 翻转 | 1228 / 1246 | 98.555377% |
-
-统计范围是 `async_fifo` 及实际实例化的五个子模块，包含补充的 `write_to_read_pointer_sync`。测试平台、PSS 生成的 SV/runtime 和未实例化的 `rtl/load_memory.sv` 不计入 DUT 汇总。Verilator 默认 `--coverage-max-width 256`，整个 RAM 存储数组未计入翻转覆盖率。百分比按工具插桩点统计。
-
-仅计算原始仓库 RTL 时，行覆盖为 7/7，分支为 14/14，表达式为 13/13，翻转为 1122/1140（98.421053%）。各文件结果及统计范围见 `reference_results/coverage.json`。
-
-## 在现有 Ubuntu 环境中逐步复现
+## 环境与复现
 
 以下命令全部在 Ubuntu bash 中执行。已有工具版本为 Python 3.12.3、PSSC 0.1.0、Verilator 5.052。PSSC 使用与 `wang-ailing/pssc` 的提交 `c44287ec3493b62ccbcbbe4505f9dbfb35604e4e` 一致的源码。
 
@@ -59,7 +59,7 @@ cp -R \
 
 mkdir -p "$fifo_run_dir/generated" "$fifo_run_dir/results"
 cd "$fifo_run_dir"
-printf '本次运行目录：%s\n' "$fifo_run_dir"
+printf '运行目录：%s\n' "$fifo_run_dir"
 ```
 
 ### 2. 设置工具
@@ -195,11 +195,28 @@ print("结果目录：", Path("results").resolve())
 PY
 ```
 
-本次重跑结果保存在 `$fifo_run_dir/results/`，其中 `functional.json` 是功能检查，`coverage.json` 是覆盖率统计，`coverage.dat` 是原始数据，`dut.info` 是 LCOV 报告，`annotated/` 是带覆盖信息的 RTL。
+运行结果保存在 `$fifo_run_dir/results/`，其中 `functional.json` 是功能检查，`coverage.json` 是覆盖率统计，`coverage.dat` 是原始数据，`dut.info` 是 LCOV 报告，`annotated/` 是带覆盖信息的 RTL。
 
-## 源码来源
+## 参考结果
 
-- Spec 和原始 RTL：[Spec2Cov 固定提交](https://github.com/advent-lab/Spec2Cov/tree/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb/data/cvdp_agentic_async_fifo_compute_ram_application)。
-- 原仓库引用但缺少的 `write_to_read_pointer_sync` 来自 NVIDIA CVDP 数据集的同一 FIFO 示例，原文、许可和 NOTICE 一并保留。
-- [SOURCE.json](SOURCE.json) 保存具体来源及各 RTL 文件 SHA-256。
-- [TRANSFER_MANIFEST.json](TRANSFER_MANIFEST.json) 保存首次上传文件与 Linux 来源文件的字节数和 SHA-256。`model/fifo.pss` 后续仅新增了各 action 的中文说明注释；当前文件哈希以仓库根目录的 [SHA256SUMS](../SHA256SUMS) 为准。
+参考结果来自使用本目录 PSS/SV 的真实工具链运行。PSS 解析、SV 生成、Verilator 编译、仿真和覆盖率统计均成功；工具链运行未调用模型服务。
+
+10 条验证意图全部通过，错误数为 0。检查范围包括复位、单次读写、写满与阻止溢出、读空、数据顺序、并发读写、指针同步与标志变化、运行中协调复位、指针回绕和随机激励。
+
+| 覆盖类型 | 已覆盖 / 总插桩点 | 覆盖率 |
+|---|---:|---:|
+| 行 | 8 / 8 | 100% |
+| 分支 | 16 / 16 | 100% |
+| 表达式 | 15 / 15 | 100% |
+| 翻转 | 1228 / 1246 | 98.555377% |
+
+统计范围为 `async_fifo` 及实际实例化的五个子模块，包含补充的 `write_to_read_pointer_sync`。测试平台、PSSC 生成的 SV 和运行库，以及未实例化的 `rtl/load_memory.sv` 不计入 DUT 汇总。Verilator 默认 `--coverage-max-width 256`，整个 RAM 存储数组未计入翻转覆盖率。百分比按工具插桩点统计。
+
+仅计算原始仓库 RTL 时，行覆盖为 7/7，分支为 14/14，表达式为 13/13，翻转为 1122/1140（98.421053%）。统计范围和各文件指标见 [reference_results/coverage.json](reference_results/coverage.json)；功能状态见 [reference_results/functional.json](reference_results/functional.json)。
+
+## 来源与完整性
+
+- 规范和原始 RTL：[Spec2Cov 固定提交](https://github.com/advent-lab/Spec2Cov/tree/98ddc836668c81d116e0bb9a7faf8f56b2c58cdb/data/cvdp_agentic_async_fifo_compute_ram_application)。
+- 原仓库引用但缺少的 `write_to_read_pointer_sync` 来自 NVIDIA CVDP 数据集的同一 FIFO 示例；原文、许可和 NOTICE 保存在 `dependencies/`。
+- [SOURCE.json](SOURCE.json) 保存源码来源和各 RTL 文件 SHA-256。
+- [TRANSFER_MANIFEST.json](TRANSFER_MANIFEST.json) 记录 Linux 导出文件的字节数和 SHA-256。PSS 的 action 中文说明注释属于文档补充，未改变模型行为；当前仓库文件哈希以根目录 [SHA256SUMS](../SHA256SUMS) 为准。
